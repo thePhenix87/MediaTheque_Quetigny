@@ -78,6 +78,12 @@ public class DAO <T> implements Serializable {
         return this.em;
     }
     
+    /**
+     * Executé un Named Query avec un map de Parametre ou bien null si y'en a pas
+     * @param namedQueryString
+     * @param params
+     * @return 
+     */
      public List execNamedQuery(String namedQueryString,Map<String,String> params){
         Query q = em.createNamedQuery(namedQueryString);
         if(params!=null &&params.size()> 0){
