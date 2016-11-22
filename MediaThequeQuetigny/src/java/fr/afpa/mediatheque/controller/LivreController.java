@@ -6,6 +6,7 @@
 package fr.afpa.mediatheque.controller;
 import fr.afpa.mediatheque.model.Livre;
 import fr.afpa.mediatheque.dao.LivreDao;
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
 
@@ -25,10 +26,12 @@ public class LivreController {
     
     @Inject
     LivreDao livreDao;
+    private HashMap params;
     
     private List<Livre> livres ;
 
     public LivreController() {
+        this.params = new HashMap<String,String>();
     }
 
     @PostConstruct
@@ -41,7 +44,10 @@ public class LivreController {
         return livres;
     }
     
-    
+    public Livre getLivreByTitle(String title){
+        params.put("titre", title);
+        return (Livre) livreDao.execNamedQuery("Livre.findByTitre",params ).get(0);
+    }
     
     
 }

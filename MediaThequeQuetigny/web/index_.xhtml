@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"     
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <!--Import materialize.css
+    <link type="text/css" rel="stylesheet" href="./resources/css/materialize.min.css"  media="screen,projection"/>-->
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="./resources/js/materialize.min.js"></script>
+    <h:head>
+
+
+    </h:head>
+    <h:body >
+        <f:facet name="last">
+            <h:outputStylesheet  name="css/materialize.min.css" />
+            <h:outputStylesheet  name="css/layout.css" />
+        </f:facet>
+        <nav class=" blue lighten-1 z-depth-1 fixed">
+            <div class="nav-wrapper container  ">
+                <a href="?p=home" class="brand-logo">TOP CO</a>
+                <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="?p=home"><i class="tiny left material-icons">toc</i>Accueil</a></li>
+                    <li> 
+                        <h:form rendered="#{logoutBean.getUser()!='invité'}">
+                            <h:commandLink action="#{logoutBean.logout}" value="Deconnexion" />
+                        </h:form>
+                    </li>
+                    <li><div class="chip blue lighten-1"><p:graphicImage name="img/mac.jpg"/> #{logoutBean.getUser()}</div></li>
+                </ul>
+                
+                 <ul id="mobile-menu" class="side-nav" >
+                    <li><a href="?p=home"><i class="tiny left material-icons">toc</i>Accueil</a></li>
+                    <li> 
+                        <h:form rendered="#{logoutBean.getUser()!='invité'}">
+                            <h:commandLink action="#{logoutBean.logout}" value="Deconnexion" />
+                        </h:form>
+                    </li>
+                    <li><div class="chip blue lighten-1"><p:graphicImage name="img/mac.jpg"/> #{logoutBean.getUser()}</div></li>
+                </ul>
+            </div>
+        </nav>        
+        <div class="row  white  z-depth-0" style="margin: 5px auto 5px auto !important; " >            
+            <div class="container   " style="border :0px solid ;padding:10px auto 5px auto;height: 45px; ">
+                <div class="left col l2" id="left-nav-box">
+                    left nav box
+                </div>
+
+                <!--Zon de recherche-->
+                <div class="left col l8 z-depth-0 " id="center-nav-box" style="padding: 0px;border: solid 0px #689f38;">
+                    <h:form>
+                        <div class="col l4 m6 s12 left input-field " style="padding: 0 10px !important;margin: 0 !important">
+                            
+                            <p:autoComplete id="propositionArticle" 
+                                            placeholder="Je veux acheter..."
+                                      
+                                            style="width: 100%">
+                                <p:ajax event="itemSelect" listener="#{etudiantController.onItemSelect}"  />
+                            </p:autoComplete>
+                        </div>
+                        <div class="col l6 m6 s12 left input-field " style="padding: 0 10px !important;margin: 0 !important">
+                            
+                                <h:selectOneMenu id="categorie" value="#{selectionController.selectedCat}" 
+                                                 converter="#{categoryConverter}"                                                 
+                                                 style="width:150px">                                                
+                                    
+                                    <f:selectItems value="#{selectionController.categorieList}" var="cat" itemLabel="#{cat.intitule}" itemValue="#{cat}" />
+                                </h:selectOneMenu>
+                         
+
+                        </div>
+                        <div class="col l1 m6 s12 left input-field "  style="padding: 0px !important;margin: 0 !important">
+                            <a href="#" class="btn red darken-1 z-depth-0" style="margin-top: 3px;">
+                                <i class="material-icons right" style="margin-left: 0;font-size: 2em;">search</i></a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </h:form>
+                </div>
+                <div class="right col l2" id="right-nav-box" style="position: relative">
+                    <div class="nav-cart nav-cart-box">
+                        <a href="//shoppingcart.aliexpress.com/shopcart/shopcartDetail.htm" rel="nofollow">
+                            <span class="text hidden-sm">Panier</span></a>
+                        <span class="cart-number" id="nav-cart-num">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--Contenue Principale -->
+        <div class="row  white z-depth-0" > 
+            <ui:include src="./resources/pages/home.xhtml"/>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+        <script>
+
+            $(document).ready(function () {
+                $('select').material_select();
+                $('.modal-trigger').leanModal();
+                $('.carousel.carousel-slider').carousel({full_width: true});
+                 $(".button-collapse").sideNav();
+
+
+            });
+        </script>
+
+    </h:body>
+</html>
+
