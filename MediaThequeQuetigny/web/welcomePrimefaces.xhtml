@@ -9,12 +9,12 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>PrimeFaces première modif 2</title>
+                <title>PrimeFaces</title>
             </f:facet>
         </h:head>
 
         <h:body>
-            fdfdsjkfsdjkd
+
             <p:layout fullPage="true">
 
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
@@ -32,15 +32,18 @@
                             <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
                             <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
                             <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
+
                         </p:submenu>
+
                     </p:menu>
                 </p:layoutUnit>
+
                 <p:layoutUnit position="center">
-                    #{livreController.livres}
+                    Welcome to PrimeFaces
                 </p:layoutUnit>
+
             </p:layout>
-            <br />
-            <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+
         </h:body>
 
     </f:view>
