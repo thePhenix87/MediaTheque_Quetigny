@@ -5,12 +5,14 @@
  */
 package dao;
 
+import javax.ejb.Stateless;
 import model.Emprunt;
 
 /**
  *
  * @author alex-dev
  */
+@Stateless
 public class EmpruntDao extends DAO_IMPL<Emprunt>{
     
     
