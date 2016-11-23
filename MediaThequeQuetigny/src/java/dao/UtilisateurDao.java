@@ -17,4 +17,5 @@ public class UtilisateurDao extends DAO_IMPL<Utilisateur>{
     {
         super(Utilisateur.class);
     }
+    
 }
