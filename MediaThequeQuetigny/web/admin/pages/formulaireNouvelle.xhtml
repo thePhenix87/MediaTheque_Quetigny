@@ -4,18 +4,20 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-   <ui:composition> 
-        <h:form id="formBandeauSuperieur">
-            <h:panelGrid columns="3" cellpadding="5" id="panelInscription">
-                Titre :
-                <p:inputTextarea id="texte" rows="6" cols="33" value="#{controlNouvelle.nouvelle.texte}"/>
-                <p:message for="texte"/>
-                Date :
-(à faire)
-                
-                <p:commandButton value="Valider" update="panelInscription" id="boutonValiderNouveauJoueur" actionListener="#{controlInscription.inscrire()}"/>
-            </h:panelGrid>
-        </h:form>
-
+    <ui:composition> 
+        <p:fieldset legend="Ecrire une nouvelle" style="margin-bottom:20px">
+            <h:form id="formBandeauSuperieur">
+                <h:panelGrid columns="3" cellpadding="5">
+                    <h:outputText value="Texte de la nouvelle"/>
+                    <p:inputTextarea id="texte" rows="6" cols="33" value="#{controlNouvelle.nouvelle.texte}"/>
+                    <p:message for="texte"/>
+                    <h:outputText value="Date"/>
+                    <p:calendar id="date" value="#{calendarView.date2}" />
+                    <p:message for="date"/>
+                    <p:commandButton value="Valider" id="boutonValiderNouvelle" actionListener="#{controlInscription.inscrire()}"/>
+                </h:panelGrid>
+            </h:form>
+        </p:fieldset>
+        
     </ui:composition>
 </html>
