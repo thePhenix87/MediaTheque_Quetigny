@@ -28,8 +28,7 @@ public class UtilisateurController implements Serializable{
     
     @Inject
     private UtilisateurDao utilisateurDao;
-    private Utilisateur utilisateur;
-    
+    private Utilisateur utilisateur;    
     private Utilisateur nouvelutilisateur;
     
     public void creerUtilisateur()
