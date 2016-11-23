@@ -52,4 +52,29 @@ public class UtilisateurController implements Serializable{
             System.out.println("Utilisateur crée");
         }
     }    
+
+    public UtilisateurDao getUtilisateurDao() {
+        return utilisateurDao;
+    }
+
+    public void setUtilisateurDao(UtilisateurDao utilisateurDao) {
+        this.utilisateurDao = utilisateurDao;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public Utilisateur getNouvelutilisateur() {
+        return nouvelutilisateur;
+    }
+
+    public void setNouvelutilisateur(Utilisateur nouvelutilisateur) {
+        this.nouvelutilisateur = nouvelutilisateur;
+    }
+    
 }
