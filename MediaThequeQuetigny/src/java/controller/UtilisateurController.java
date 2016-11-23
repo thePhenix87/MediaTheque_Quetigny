@@ -31,6 +31,11 @@ public class UtilisateurController implements Serializable{
     private Utilisateur utilisateur;    
     private Utilisateur nouvelutilisateur;
     
+    public UtilisateurController()
+    {
+        nouvelutilisateur=new Utilisateur();
+    }
+    
     public void creerUtilisateur()
     {
 
