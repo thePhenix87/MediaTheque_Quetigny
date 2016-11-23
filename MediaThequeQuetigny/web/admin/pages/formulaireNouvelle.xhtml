@@ -4,23 +4,18 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-   <!-- <ui:composition> -->
-       <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-   <h:body>
+   <ui:composition> 
         <h:form id="formBandeauSuperieur">
             <h:panelGrid columns="3" cellpadding="5" id="panelInscription">
                 Titre :
                 <p:inputTextarea id="texte" rows="6" cols="33" value="#{controlNouvelle.nouvelle.texte}"/>
                 <p:message for="texte"/>
                 Date :
-                <p:inputText id="dpseudo" value="#{controlInscription.utilisateur.pseudo}" />
-                <p:message for="pseudo"/>
+(à faire)
                 
                 <p:commandButton value="Valider" update="panelInscription" id="boutonValiderNouveauJoueur" actionListener="#{controlInscription.inscrire()}"/>
             </h:panelGrid>
         </h:form>
-    </h:body>
-    <!-- </ui:composition> -->
+
+    </ui:composition>
 </html>
