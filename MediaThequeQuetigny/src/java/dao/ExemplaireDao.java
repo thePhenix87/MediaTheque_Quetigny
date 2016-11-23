@@ -5,12 +5,15 @@
  */
 package dao;
 
+import javax.ejb.Stateless;
 import model.Exemplaire;
 
 /**
  *
  * @author alex-dev
  */
+
+@Stateless
 public class ExemplaireDao extends DAO_IMPL<Exemplaire>{
     
      public ExemplaireDao()
