@@ -5,16 +5,19 @@
  */
 package dao;
 
+import javax.ejb.Stateless;
 import model.Utilisateur;
 
 /**
  *
  * @author Samuel
  */
+@Stateless
 public class UtilisateurDao extends DAO_IMPL<Utilisateur>{
     
     public UtilisateurDao()
     {
         super(Utilisateur.class);
-    }    
+    } 
+    
 }
