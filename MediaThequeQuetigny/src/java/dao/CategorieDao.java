@@ -3,12 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.afpa.mediatheque.interfaces;
+package dao;
+
+import model.Categorie;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author Tarik
  */
-public interface DAO_IMPL {
+@Stateless
+public class CategorieDao extends DAO_IMPL<Categorie>{
+
+    public CategorieDao() {
+        super(Categorie.class);
+    }
+    
     
 }

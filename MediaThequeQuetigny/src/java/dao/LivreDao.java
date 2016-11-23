@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.afpa.mediatheque.dao;
+package dao;
 
-import fr.afpa.mediatheque.model.Livre;
+import model.Livre;
 import javax.ejb.Stateless;
 
 /**
@@ -13,7 +13,7 @@ import javax.ejb.Stateless;
  * @author Tarik
  */
 @Stateless
-public class LivreDao extends DAO<Livre> {
+public class LivreDao extends DAO_IMPL<Livre> {
 
     public LivreDao() {
        //construir le livreDao avec le constructeur parent qui prend un type de class en parametre

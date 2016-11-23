@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.afpa.mediatheque.model;
+package model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -28,46 +28,53 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Tarik
  */
 @Entity
-@Table(name = "editeur")
+@Table(name = "auteur")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Editeur.findAll", query = "SELECT e FROM Editeur e")
-    , @NamedQuery(name = "Editeur.findByIdEditeur", query = "SELECT e FROM Editeur e WHERE e.idEditeur = :idEditeur")
-    , @NamedQuery(name = "Editeur.findByNom", query = "SELECT e FROM Editeur e WHERE e.nom = :nom")})
-public class Editeur implements Serializable {
+    @NamedQuery(name = "Auteur.findAll", query = "SELECT a FROM Auteur a")
+    , @NamedQuery(name = "Auteur.findByIdAuteur", query = "SELECT a FROM Auteur a WHERE a.idAuteur = :idAuteur")
+    , @NamedQuery(name = "Auteur.findByNom", query = "SELECT a FROM Auteur a WHERE a.nom = :nom")
+    , @NamedQuery(name = "Auteur.findByPrenom", query = "SELECT a FROM Auteur a WHERE a.prenom = :prenom")})
+public class Auteur implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idEditeur")
-    private Integer idEditeur;
+    @Column(name = "idAuteur")
+    private Integer idAuteur;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 50)
     @Column(name = "nom")
     private String nom;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEditeur")
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 25)
+    @Column(name = "prenom")
+    private String prenom;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAuteur")
     private List<Livre> livreList;
 
-    public Editeur() {
+    public Auteur() {
     }
 
-    public Editeur(Integer idEditeur) {
-        this.idEditeur = idEditeur;
+    public Auteur(Integer idAuteur) {
+        this.idAuteur = idAuteur;
     }
 
-    public Editeur(Integer idEditeur, String nom) {
-        this.idEditeur = idEditeur;
+    public Auteur(Integer idAuteur, String nom, String prenom) {
+        this.idAuteur = idAuteur;
         this.nom = nom;
+        this.prenom = prenom;
     }
 
-    public Integer getIdEditeur() {
-        return idEditeur;
+    public Integer getIdAuteur() {
+        return idAuteur;
     }
 
-    public void setIdEditeur(Integer idEditeur) {
-        this.idEditeur = idEditeur;
+    public void setIdAuteur(Integer idAuteur) {
+        this.idAuteur = idAuteur;
     }
 
     public String getNom() {
@@ -76,6 +83,14 @@ public class Editeur implements Serializable {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 
     @XmlTransient
@@ -90,18 +105,18 @@ public class Editeur implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idEditeur != null ? idEditeur.hashCode() : 0);
+        hash += (idAuteur != null ? idAuteur.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Editeur)) {
+        if (!(object instanceof Auteur)) {
             return false;
         }
-        Editeur other = (Editeur) object;
-        if ((this.idEditeur == null && other.idEditeur != null) || (this.idEditeur != null && !this.idEditeur.equals(other.idEditeur))) {
+        Auteur other = (Auteur) object;
+        if ((this.idAuteur == null && other.idAuteur != null) || (this.idAuteur != null && !this.idAuteur.equals(other.idAuteur))) {
             return false;
         }
         return true;
@@ -109,7 +124,7 @@ public class Editeur implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.afpa.mediatheque.model.Editeur[ idEditeur=" + idEditeur + " ]";
+        return "fr.afpa.mediatheque.model.Auteur[ idAuteur=" + idAuteur + " ]";
     }
     
 }
