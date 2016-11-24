@@ -38,8 +38,7 @@ public class UtilisateurController implements Serializable{
     
     public void creerUtilisateur()
     {
-
-        if (utilisateurDao.selectWhere(new SqlParam("login=>"+nouvelutilisateur.getLogin()))!=null)
+        if (!(utilisateurDao.selectWhere(new SqlParam("login=>"+nouvelutilisateur.getLogin())).isEmpty()))
             System.out.println("Pseudo déja utilisé");
         else
         {
