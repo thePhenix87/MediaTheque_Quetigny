@@ -5,12 +5,14 @@
  */
 package dao;
 
+import javax.ejb.Stateless;
 import model.Auteur;
 
 /**
  *
- * @author Tarik
+ * @author 21011-46-09
  */
+@Stateless
 public class AuteurDao extends DAO_IMPL<Auteur>{
 
     public AuteurDao() {

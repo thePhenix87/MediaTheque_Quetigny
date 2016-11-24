@@ -38,7 +38,6 @@ public class EditeurController {
     @PostConstruct
     public void initEditeur(){
          listEditeur = editeurDao.getAll();
-         System.out.println(listEditeur);
     }
     //Getters & Setters
 
