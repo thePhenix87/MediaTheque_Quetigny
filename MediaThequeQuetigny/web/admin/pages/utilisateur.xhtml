@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+ <h:head>
+
+     <title>Form users</title>
+    </h:head>
+        <h:form>    
+            <p:panelGrid columns="2">
+                
+                <h:outputText value="idUtilisateur" />
+                <p:inputText  value="#{UtilisateurController.nouvelutilisateur.idUtilisateur}"/>
+                
+                <h:outputText value="Nom:" />
+                <p:inputText  value="#{UtilisateurController.nouvelutilisateur.nom}"/>
+
+                <h:outputText value="Prenom:" />
+                <p:inputText value="#{UtilisateurController.nouvelutilisateur.prenom}" />
+                
+                <h:outputText value="Session de formation" />
+                <p:selectBooleanCheckbox value="#{UtilisateurController.nouvelutilisateur.sessionFormation}" />
+
+                <h:outputText value="Type" />
+                <p:selectOneMenu value="#{utilisateurController.nouvelutilisateur.type}" style="width:125px" >
+                <f:selectItem itemLabel="Select One" itemValue="" />
+                <f:selectItem itemLabel="Stagiaire" itemValue="Stagiaire" />
+                <f:selectItem itemLabel="Formateur" itemValue="Formateur" />
+                <f:selectItem itemLabel="Personnel" itemValue="Personnel" />
+                </p:selectOneMenu>
+
+
+                <h:outputText value="Mail" />
+                <p:inputText value="#{UtilisateurController.nouvelutilisateur.mail}"/>
+                
+                <h:outputText value="Date de naissance" />
+                <p:inputText value="#{UtilisateurController.nouvelutilisateur.dateNaissance}"/>
+                
+                <h:outputText value="Telephone" />
+                <p:inputText value="#{UtilisateurController.nouvelutilisateur.telephone}"/>
+                
+                <h:outputText value="Adresse" />
+                <p:inputText value="#{UtilisateurController.nouvelutilisateur.adresse}"/>
+                
+                <h:outputText value="Ville:" />
+                <p:inputText value="#{UtilisateurController.nouvelutilisateur.ville}"/>
+                
+                <h:outputText value="Code postal" />
+                <p:inputText value="#{UtilisateurController.nouvelutilisateur.cp}"/>
+                
+                <h:outputText value="Login" />
+                <p:inputText value="#{UtilisateurController.nouvelutilisateur.login}"/>
+                
+                <h:outputText value="Mot de passe:" />
+                <p:password value="#{UtilisateurController.nouvelutilisateur.mdp}"/>
+                
+                <p:commandButton value="Valide" action="#{UtilisateurController.creerUtilisateur()}" />
+                
+            </p:panelGrid>
+        </h:form>    
+</ui:composition>
