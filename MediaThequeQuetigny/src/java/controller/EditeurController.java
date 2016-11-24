@@ -34,9 +34,9 @@ public class EditeurController {
           listEditeur = new ArrayList<>();
       
     }
-      /*Initialise la liste de catégorie*/
+      /*Initialise la liste des éditeurs*/
     @PostConstruct
-    public void initCategorie(){
+    public void initEditeur(){
          listEditeur = editeurDao.getAll();
          System.out.println(listEditeur);
     }

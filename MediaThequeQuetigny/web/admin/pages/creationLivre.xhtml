@@ -7,7 +7,8 @@
     <h:head>
         <title>Nouvel utilisateur</title>     
     </h:head>
-    <h:body><center><h2>Ajouter un utilisateur #{livreController.livres.size()}</h2></center>
+    <h:body><center><h2>Ajouter un utilisateur</h2></center>
+        #{livreController.livres.size()}
         #{categorieController.listCategorie.size()}
         <center>
             <h:form id="formAjouter">
@@ -23,23 +24,44 @@
                                        itemLabel="#{categorie.intitule}" />       
                     </p:selectOneMenu>   
                     
-                     <p:outputLabel value="Categorie" />
+                     <p:outputLabel value="Editeur" />
                      <p:selectOneMenu value="#{editeurController.editeur}"   >     
                         <p:ajax   update=":formAjouter"   />
                        
                         <f:selectItems value="#{editeurController.listEditeur}" 
                                        itemValue="#{editeur}"  
-                                       var="categorie"
+                                       var="editeur"
                                        itemLabel="#{editeur.nom}" />       
                     </p:selectOneMenu>    
                      
+                      <p:outputLabel value="Auteur" />
+                      <p:selectOneMenu value="#{auteurController.auteur}"   >     
+                        <p:ajax   update=":formAjouter"   />
+                       
+                        <f:selectItems value="#{auteurController.listEditeur}" 
+                                       itemValue="#{auteur}"  
+                                       var="editeur"
+                                       itemLabel="#{auteur.nom}" />       
+                    </p:selectOneMenu>  
+                      
                     <p:outputLabel for="statut" value="Statut" />
                     <p:selectOneMenu id="statut" value="#{livreController.statut}" style="width:125px">
                         <f:selectItem itemLabel="Disponible" itemValue="disponible" />
                         <f:selectItem itemLabel="Indisponible" itemValue="indisponible" />
                     </p:selectOneMenu>
                 </p:panelGrid> 
-
+                <br></br>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 <p:panelGrid columns="2" id="gridlivre3" >   
                     Titre<p:inputText id="id" value=""/>
                     Année d'édition<p:inputText id="anneeEdit" value=""/>   
