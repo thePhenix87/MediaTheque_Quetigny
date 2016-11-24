@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Nouvel utilisateur</title>     
+    </h:head>
+    <h:body><center><h2>Ajouter un utilisateur #{livreController.livres.size()}</h2></center>
+        #{categorieController.listCategorie.size()}
+        <center>
+            <h:form id="formAjouter">
+                <p:growl id="msgs" showDetail="true" autoUpdate="true"/>
+                <p:panelGrid columns="2" id="gridlivre" >  
+                    <p:outputLabel value="Categorie" />
+                    <p:selectOneMenu value="#{categorieController.categorie}"   >     
+                        <p:ajax   update=":formAjouter"   />
+                       
+                        <f:selectItems value="#{categorieController.listCategorie}" 
+                                       itemValue="#{categorie}"  
+                                       var="categorie"
+                                       itemLabel="#{categorie.intitule}" />       
+                    </p:selectOneMenu>   
+                    
+                     <p:outputLabel value="Categorie" />
+                     <p:selectOneMenu value="#{editeurController.editeur}"   >     
+                        <p:ajax   update=":formAjouter"   />
+                       
+                        <f:selectItems value="#{editeurController.listEditeur}" 
+                                       itemValue="#{editeur}"  
+                                       var="categorie"
+                                       itemLabel="#{editeur.nom}" />       
+                    </p:selectOneMenu>    
+                     
+                    <p:outputLabel for="statut" value="Statut" />
+                    <p:selectOneMenu id="statut" value="#{livreController.statut}" style="width:125px">
+                        <f:selectItem itemLabel="Disponible" itemValue="disponible" />
+                        <f:selectItem itemLabel="Indisponible" itemValue="indisponible" />
+                    </p:selectOneMenu>
+                </p:panelGrid> 
+
+                <p:panelGrid columns="2" id="gridlivre3" >   
+                    Titre<p:inputText id="id" value=""/>
+                    Année d'édition<p:inputText id="anneeEdit" value=""/>   
+                    Description
+                    <p:inputTextarea rows="4" cols="23" id="description" value=""/>
+                </p:panelGrid> 
+                <br></br>
+                <p:commandButton value="Valider" update="" id="boutonValiderNouveauLivre" />
+
+            </h:form>
+        </center>
+    </h:body>
+</html>
+

@@ -10,6 +10,7 @@ import dao.LivreDao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,7 +26,7 @@ import model.Livre;
 public class CategorieController {
    
     @Inject
-    CategorieDao catDao;
+    private CategorieDao catDao;
     private HashMap params;
     
     private Categorie categorie;
@@ -38,6 +39,7 @@ public class CategorieController {
           listCategorie = new ArrayList<>();
     }
       /*Initialise la liste de catégorie*/
+    @PostConstruct
     public void initCategorie(){
          listCategorie = catDao.getAll();
          System.out.println(listCategorie);
