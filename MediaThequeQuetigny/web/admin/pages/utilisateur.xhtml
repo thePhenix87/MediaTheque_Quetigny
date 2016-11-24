@@ -19,16 +19,16 @@ and open the template in the editor.
             <p:panelGrid columns="2">
                 
                 <h:outputText value="idUtilisateur" />
-                <p:inputText  value="#{UtilisateurController.nouvelutilisateur.idUtilisateur}"/>
+                <p:inputText  value="#{utilisateurController.nouvelutilisateur.idUtilisateur}"/>
                 
                 <h:outputText value="Nom:" />
-                <p:inputText  value="#{UtilisateurController.nouvelutilisateur.nom}"/>
+                <p:inputText  value="#{utilisateurController.nouvelutilisateur.nom}"/>
 
                 <h:outputText value="Prenom:" />
-                <p:inputText value="#{UtilisateurController.nouvelutilisateur.prenom}" />
+                <p:inputText value="#{utilisateurController.nouvelutilisateur.prenom}" />
                 
                 <h:outputText value="Session de formation" />
-                <p:selectBooleanCheckbox value="#{UtilisateurController.nouvelutilisateur.sessionFormation}" />
+                <p:selectBooleanCheckbox value="#{utilisateurController.nouvelutilisateur.sessionFormation}" />
 
                 <h:outputText value="Type" />
                 <p:selectOneMenu value="#{utilisateurController.nouvelutilisateur.type}" style="width:125px" >
@@ -40,30 +40,32 @@ and open the template in the editor.
 
 
                 <h:outputText value="Mail" />
-                <p:inputText value="#{UtilisateurController.nouvelutilisateur.mail}"/>
+                <p:inputText value="#{utilisateurController.nouvelutilisateur.mail}"/>
                 
                 <h:outputText value="Date de naissance" />
-                <p:inputText value="#{UtilisateurController.nouvelutilisateur.dateNaissance}"/>
+         
+                <p:calendar id="dateNaissance" value="#{utilisateurController.nouvelutilisateur.dateNaissance}" locale="fr" yearRange="c-100:" navigator="true" pattern="dd-MM-yyyy" />
+       
                 
                 <h:outputText value="Telephone" />
-                <p:inputText value="#{UtilisateurController.nouvelutilisateur.telephone}"/>
+                <p:inputText value="#{utilisateurController.nouvelutilisateur.telephone}"/>
                 
                 <h:outputText value="Adresse" />
-                <p:inputText value="#{UtilisateurController.nouvelutilisateur.adresse}"/>
+                <p:inputText value="#{utilisateurController.nouvelutilisateur.adresse}"/>
                 
                 <h:outputText value="Ville:" />
-                <p:inputText value="#{UtilisateurController.nouvelutilisateur.ville}"/>
+                <p:inputText value="#{utilisateurController.nouvelutilisateur.ville}"/>
                 
                 <h:outputText value="Code postal" />
-                <p:inputText value="#{UtilisateurController.nouvelutilisateur.cp}"/>
+                <p:inputText value="#{utilisateurController.nouvelutilisateur.cp}"/>
                 
                 <h:outputText value="Login" />
-                <p:inputText value="#{UtilisateurController.nouvelutilisateur.login}"/>
+                <p:inputText value="#{utilisateurController.nouvelutilisateur.login}"/>
                 
                 <h:outputText value="Mot de passe:" />
-                <p:password value="#{UtilisateurController.nouvelutilisateur.mdp}"/>
+                <p:password value="#{utilisateurController.nouvelutilisateur.mdp}"/>
                 
-                <p:commandButton value="Valide" action="#{UtilisateurController.creerUtilisateur()}" />
+                <p:commandButton value="Valide" action="#{utilisateurController.creerUtilisateur()}" />
                 
             </p:panelGrid>
         </h:form>    
