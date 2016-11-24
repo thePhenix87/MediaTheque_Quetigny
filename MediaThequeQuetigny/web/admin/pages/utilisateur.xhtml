@@ -15,57 +15,67 @@ and open the template in the editor.
 
      <title>Form users</title>
     </h:head>
-        <h:form>    
-            <p:panelGrid columns="2">
-                
-                <h:outputText value="idUtilisateur" />
-                <p:inputText  value="#{utilisateurController.nouvelutilisateur.idUtilisateur}"/>
+        <h:form id="form">
+            <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" globalOnly="true"/>
+            <p:panelGrid columns="3">
                 
                 <h:outputText value="Nom:" />
-                <p:inputText  value="#{utilisateurController.nouvelutilisateur.nom}"/>
+                <p:inputText id="nom" value="#{utilisateurController.nouvelutilisateur.nom}"/>
+                <p:message for="nom"/>
 
                 <h:outputText value="Prenom:" />
-                <p:inputText value="#{utilisateurController.nouvelutilisateur.prenom}" />
+                <p:inputText id="prenom" value="#{utilisateurController.nouvelutilisateur.prenom}" />
+                <p:message for="prenom"/>
                 
                 <h:outputText value="Session de formation" />
-                <p:selectBooleanCheckbox value="#{utilisateurController.nouvelutilisateur.sessionFormation}" />
-
+                <p:selectBooleanCheckbox id="sessionFormation" value="#{utilisateurController.nouvelutilisateur.sessionFormation}" />
+                <p:message for="sessionFormation"/>
+                
                 <h:outputText value="Type" />
-                <p:selectOneMenu value="#{utilisateurController.nouvelutilisateur.type}" style="width:125px" >
-                <f:selectItem itemLabel="Select One" itemValue="" />
+                <p:selectOneMenu id="type" value="#{utilisateurController.nouvelutilisateur.type}" style="width:125px" >
+                <f:selectItem itemLabel="--------" itemValue="" />
                 <f:selectItem itemLabel="Stagiaire" itemValue="Stagiaire" />
                 <f:selectItem itemLabel="Formateur" itemValue="Formateur" />
                 <f:selectItem itemLabel="Personnel" itemValue="Personnel" />
                 </p:selectOneMenu>
+                <p:message for="type"/>
 
 
                 <h:outputText value="Mail" />
-                <p:inputText value="#{utilisateurController.nouvelutilisateur.mail}"/>
+                <p:inputText id="mail" value="#{utilisateurController.nouvelutilisateur.mail}"/>
+                <p:message for="mail"/>
                 
-                <h:outputText value="Date de naissance" />
-         
+                <h:outputText value="Date de naissance" />         
                 <p:calendar id="dateNaissance" value="#{utilisateurController.nouvelutilisateur.dateNaissance}" locale="fr" yearRange="c-100:" navigator="true" pattern="dd-MM-yyyy" />
-       
+                <p:message for="dateNaissance"/>
                 
                 <h:outputText value="Telephone" />
-                <p:inputText value="#{utilisateurController.nouvelutilisateur.telephone}"/>
+                <p:inputText id="telephone" value="#{utilisateurController.nouvelutilisateur.telephone}"/>
+                <p:message for="telephone"/>
                 
                 <h:outputText value="Adresse" />
-                <p:inputText value="#{utilisateurController.nouvelutilisateur.adresse}"/>
+                <p:inputText id="adresse" value="#{utilisateurController.nouvelutilisateur.adresse}"/>
+                <p:message for="adresse"/>
                 
                 <h:outputText value="Ville:" />
-                <p:inputText value="#{utilisateurController.nouvelutilisateur.ville}"/>
+                <p:inputText id="ville" value="#{utilisateurController.nouvelutilisateur.ville}"/>
+                <p:message for="ville"/>
                 
                 <h:outputText value="Code postal" />
-                <p:inputText value="#{utilisateurController.nouvelutilisateur.cp}"/>
+                <p:inputText id="cp" value="#{utilisateurController.nouvelutilisateur.cp}"/>
+                <p:message for="cp"/>
                 
                 <h:outputText value="Login" />
-                <p:inputText value="#{utilisateurController.nouvelutilisateur.login}"/>
+                <p:inputText id="login" value="#{utilisateurController.nouvelutilisateur.login}"/>
+                <p:message for="login"/>
                 
                 <h:outputText value="Mot de passe:" />
-                <p:password value="#{utilisateurController.nouvelutilisateur.mdp}"/>
+                <p:password id="mdp" value="#{utilisateurController.nouvelutilisateur.mdp}"/>
+                <p:message for="mdp"/>
                 
-                <p:commandButton value="Valide" action="#{utilisateurController.creerUtilisateur()}" />
+                <p:commandButton value="Valide" action="#{utilisateurController.creerUtilisateur()}" update=":form">
+                    <f:param name="page" value="utilisateur"/>
+                </p:commandButton>
                 
             </p:panelGrid>
         </h:form>    

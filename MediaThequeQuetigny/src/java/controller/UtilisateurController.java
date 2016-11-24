@@ -12,6 +12,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import model.Utilisateur;
@@ -39,7 +41,7 @@ public class UtilisateurController implements Serializable{
     public void creerUtilisateur()
     {
         if (!(utilisateurDao.selectWhere(new SqlParam("login=>"+nouvelutilisateur.getLogin())).isEmpty()))
-            System.out.println("Pseudo déja utilisé");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur", "Ce pseudo existe déja"));
         else
         {
             try {
@@ -48,7 +50,7 @@ public class UtilisateurController implements Serializable{
                 Logger.getLogger(UtilisateurController.class.getName()).log(Level.SEVERE, null, ex);
             }
             utilisateurDao.create(nouvelutilisateur);
-            System.out.println("Utilisateur crée");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "OK", "Utilisateur \""+nouvelutilisateur.getLogin()+"\" crée"));
         }
     }
 
