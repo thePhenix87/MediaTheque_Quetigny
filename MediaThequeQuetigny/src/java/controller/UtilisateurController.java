@@ -51,7 +51,7 @@ public class UtilisateurController implements Serializable{
             utilisateurDao.create(nouvelutilisateur);
             System.out.println("Utilisateur crée");
         }
-    }    
+    }
 
     public UtilisateurDao getUtilisateurDao() {
         return utilisateurDao;
