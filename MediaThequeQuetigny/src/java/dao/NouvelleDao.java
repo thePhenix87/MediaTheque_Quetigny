@@ -16,8 +16,6 @@ import javax.ejb.Stateless;
 public class NouvelleDao extends DAO_IMPL<Nouvelle> {
 
     public NouvelleDao() {
-       //construir le livreDao avec le constructeur parent qui prend un type de class en parametre
-       // maintenant le LivreDao sait que la variable entityClass = Livre.class
       super(Nouvelle.class);
     }
 
