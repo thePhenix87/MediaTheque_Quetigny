@@ -21,33 +21,32 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Tarik
+ * @author Samuel
  */
 @Entity
 @Table(name = "utilisateur")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Utilisateur.findAll", query = "SELECT u FROM Utilisateur u")
-    , @NamedQuery(name = "Utilisateur.findByIdUtilisateur", query = "SELECT u FROM Utilisateur u WHERE u.idUtilisateur = :idUtilisateur")
-    , @NamedQuery(name = "Utilisateur.findByNom", query = "SELECT u FROM Utilisateur u WHERE u.nom = :nom")
-    , @NamedQuery(name = "Utilisateur.findByPrenom", query = "SELECT u FROM Utilisateur u WHERE u.prenom = :prenom")
-    , @NamedQuery(name = "Utilisateur.findBySessionFormation", query = "SELECT u FROM Utilisateur u WHERE u.sessionFormation = :sessionFormation")
-    , @NamedQuery(name = "Utilisateur.findByType", query = "SELECT u FROM Utilisateur u WHERE u.type = :type")
-    , @NamedQuery(name = "Utilisateur.findByMail", query = "SELECT u FROM Utilisateur u WHERE u.mail = :mail")
-    , @NamedQuery(name = "Utilisateur.findByDateNaissance", query = "SELECT u FROM Utilisateur u WHERE u.dateNaissance = :dateNaissance")
-    , @NamedQuery(name = "Utilisateur.findByTelephone", query = "SELECT u FROM Utilisateur u WHERE u.telephone = :telephone")
-    , @NamedQuery(name = "Utilisateur.findByAdresse", query = "SELECT u FROM Utilisateur u WHERE u.adresse = :adresse")
-    , @NamedQuery(name = "Utilisateur.findByVille", query = "SELECT u FROM Utilisateur u WHERE u.ville = :ville")
-    , @NamedQuery(name = "Utilisateur.findByCp", query = "SELECT u FROM Utilisateur u WHERE u.cp = :cp")
-    , @NamedQuery(name = "Utilisateur.findByLogin", query = "SELECT u FROM Utilisateur u WHERE u.login = :login")
-    , @NamedQuery(name = "Utilisateur.findByMdp", query = "SELECT u FROM Utilisateur u WHERE u.mdp = :mdp")})
+    @NamedQuery(name = "Utilisateur.findAll", query = "SELECT u FROM Utilisateur u"),
+    @NamedQuery(name = "Utilisateur.findByIdUtilisateur", query = "SELECT u FROM Utilisateur u WHERE u.idUtilisateur = :idUtilisateur"),
+    @NamedQuery(name = "Utilisateur.findByNom", query = "SELECT u FROM Utilisateur u WHERE u.nom = :nom"),
+    @NamedQuery(name = "Utilisateur.findByPrenom", query = "SELECT u FROM Utilisateur u WHERE u.prenom = :prenom"),
+    @NamedQuery(name = "Utilisateur.findBySessionFormation", query = "SELECT u FROM Utilisateur u WHERE u.sessionFormation = :sessionFormation"),
+    @NamedQuery(name = "Utilisateur.findByType", query = "SELECT u FROM Utilisateur u WHERE u.type = :type"),
+    @NamedQuery(name = "Utilisateur.findByMail", query = "SELECT u FROM Utilisateur u WHERE u.mail = :mail"),
+    @NamedQuery(name = "Utilisateur.findByDateNaissance", query = "SELECT u FROM Utilisateur u WHERE u.dateNaissance = :dateNaissance"),
+    @NamedQuery(name = "Utilisateur.findByTelephone", query = "SELECT u FROM Utilisateur u WHERE u.telephone = :telephone"),
+    @NamedQuery(name = "Utilisateur.findByAdresse", query = "SELECT u FROM Utilisateur u WHERE u.adresse = :adresse"),
+    @NamedQuery(name = "Utilisateur.findByVille", query = "SELECT u FROM Utilisateur u WHERE u.ville = :ville"),
+    @NamedQuery(name = "Utilisateur.findByCp", query = "SELECT u FROM Utilisateur u WHERE u.cp = :cp"),
+    @NamedQuery(name = "Utilisateur.findByLogin", query = "SELECT u FROM Utilisateur u WHERE u.login = :login"),
+    @NamedQuery(name = "Utilisateur.findByMdp", query = "SELECT u FROM Utilisateur u WHERE u.mdp = :mdp")})
 public class Utilisateur implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,11 +57,13 @@ public class Utilisateur implements Serializable {
     private Integer idUtilisateur;
     @Basic(optional = false)
     @NotNull
+    @Pattern(regexp="[a-zA-Z-]+")
     @Size(min = 1, max = 50)
     @Column(name = "nom")
     private String nom;
     @Basic(optional = false)
     @NotNull
+    @Pattern(regexp="[a-zA-Z-]+")
     @Size(min = 1, max = 50)
     @Column(name = "prenom")
     private String prenom;
@@ -96,21 +97,24 @@ public class Utilisateur implements Serializable {
     @Column(name = "adresse")
     private String adresse;
     @Size(max = 50)
+    @NotNull
     @Column(name = "ville")
     private String ville;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
+    @Pattern(regexp="[0-9]{5}")
     @Column(name = "cp")
     private String cp;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
+    @Pattern(regexp="[a-zA-Z0-9-_]+")
     @Column(name = "login")
     private String login;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 255)
+    @Pattern(regexp="[a-zA-Z0-9-_]+")
     @Column(name = "mdp")
     private String mdp;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUtilisateur")
@@ -246,7 +250,6 @@ public class Utilisateur implements Serializable {
         this.mdp = mdp;
     }
 
-    @XmlTransient
     public List<Emprunt> getEmpruntList() {
         return empruntList;
     }
@@ -255,7 +258,6 @@ public class Utilisateur implements Serializable {
         this.empruntList = empruntList;
     }
 
-    @XmlTransient
     public List<Nouvelle> getNouvelleList() {
         return nouvelleList;
     }
@@ -264,7 +266,6 @@ public class Utilisateur implements Serializable {
         this.nouvelleList = nouvelleList;
     }
 
-    @XmlTransient
     public List<Commentaire> getCommentaireList() {
         return commentaireList;
     }
@@ -295,7 +296,7 @@ public class Utilisateur implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.afpa.mediatheque.model.Utilisateur[ idUtilisateur=" + idUtilisateur + " ]";
+        return "model.Utilisateur[ idUtilisateur=" + idUtilisateur + " ]";
     }
     
 }
