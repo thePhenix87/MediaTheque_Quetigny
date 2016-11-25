@@ -5,12 +5,49 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Modération commentaires</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+    </h:head>
+    <h:body>
+        <p:messages id="msg" showDetail="true" autoUpdate="true"/>
+        <h:form id="form">
+            <p:dataTable value="#{commentaireController.commentaires}" var="commentaire">
+            <p:column headerText="Date">
+                <h:outputText value="#{commentaireController.sdf.format(commentaire.dateCommentaire)}"/>
+            </p:column>
+            <p:column headerText="Id ">
+                <h:outputText value="#{commentaire.idCommentaire}"/>
+            </p:column>
+            <p:column headerText="Utilisateur">
+                <h:outputText value="#{commentaire.idUtilisateur}"/>
+            </p:column>
+            <p:column headerText="Livre">
+                <h:outputText value="#{commentaire.codeLivre}"/>
+            </p:column>
+            <p:column headerText="Note">
+                <h:outputText value="#{commentaire.note}/5"/>
+            </p:column>
+            <p:column headerText="Texte">
+                <h:outputText value="#{commentaire.texte}"/>
+            </p:column>
+            <p:column headerText="Commentaire visible">
+                <p:selectBooleanCheckbox value="#{commentaire.affiche}">
+                    <f:param name="page" value="administrateurModeration"/>
+                    <p:ajax process="@this"  listener="#{commentaireController.validerCommentaire(commentaire)}" event="change" update=":msg" partialSubmit="true"/>
+                </p:selectBooleanCheckbox>
+            </p:column>
+            <p:column headerText="Supprimer le commentaire">
+                <p:commandButton value="Supprimer" actionListener="#{commentaireController.supprimerCommentaire(commentaire)}" update=":form">
+                    <f:param name="page" value="administrateurModeration"/>
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+        </h:form>
+    </h:body>
+</ui:composition>
