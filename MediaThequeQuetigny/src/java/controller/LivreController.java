@@ -13,9 +13,15 @@ import javax.annotation.PostConstruct;
 
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import model.Auteur;
+import model.Categorie;
+import model.Editeur;
+import org.primefaces.event.FileUploadEvent;
 import utilitaires.SqlParam;
 
 /**
@@ -28,23 +34,32 @@ public class LivreController {
     
     @Inject
     LivreDao livreDao;
-    @Inject
-    CategorieDao catDao;
     private HashMap params;
- 
-    private List<Livre> livres ;
-    private String statut;
-
+   
+    @Inject
+    private AuteurController auteurCtrl;
+    @Inject
+    private EditeurController editeurCtrl;
+    @Inject
+    private CategorieController categorieCtrl;
+    private Livre livre;
+    private List<Livre> listLivres ;
+    
+    private FacesContext context;
+    
     public LivreController() {
         this.params = new HashMap<String,String>();
          // SqlParam sp = new SqlParam("titre=>livre","date=>21/13/14","date=>21/13/14");  
-        this.statut = statut;
+        livre = new Livre(); 
+       
+        
+         context=FacesContext.getCurrentInstance(); //gestion des messages   
     }
 
     @PostConstruct
     public void  init(){
         String titre = "Mon titre";
-      livres =  livreDao.selectWhere(new SqlParam( 
+      listLivres =  livreDao.selectWhere(new SqlParam( 
                 "titre =>harry"
           
         ));   
@@ -52,7 +67,7 @@ public class LivreController {
   
     public List<Livre> getLivres(){     
      
-        return livres;
+        return listLivres;
     }
     
     public Livre getLivreByTitle(String title){
@@ -60,9 +75,19 @@ public class LivreController {
         return (Livre) livreDao.execNamedQuery("Livre.findByTitre",params ).get(0);
     }
     
-     //AJOUTER UNE NOTE
+    /*TELECHARGER UNE IMAGE*/
+     public void handleFileUpload(FileUploadEvent event) {
+        FacesMessage message = new FacesMessage("Le téléchargement", event.getFile().getFileName() + " est terminé.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+         System.out.println("TELECHARGEMENT");
+    }
+     //AJOUTER UN Livre
     /* public void ajouterLivre() {
-         livre. setIdCours(this.cours);
+         livre.setIdAuteur(auteurCtrl.au);
+         
+         livre.setTitre();
+         listLivres.add(livre.);
+         livre.setIdCours(this.cours);
          note.setIdEleve(this.eleve);      
          note.setDate(new Date());  
          daon.ecrire(note);
@@ -70,33 +95,14 @@ public class LivreController {
          listNotes.add(note);
          FacesMessage msg = new FacesMessage("La note de "+note.getIdEleve().getNom()+" "+note.getIdEleve().getPrenom()+" matière: '"+note.getIdCours().getNom()+" "+"':"+note.getNote()+" a bien été Ajouté" );
          FacesContext.getCurrentInstance().addMessage(null, msg);   
-    } */  
+    }  */
     
-    //Getters & Setters
+    //GETTERS & SETTERS
     public LivreDao getLivreDao() {
         return livreDao;
     }
-
+    
     public void setLivreDao(LivreDao livreDao) {
         this.livreDao = livreDao;
-    }
-
-    public CategorieDao getCatDao() {
-        return catDao;
-    }
-
-    public void setCatDao(CategorieDao catDao) {
-        this.catDao = catDao;
-    }
-
-    public String getStatut() {
-        return statut;
-    }
-
-    public void setStatut(String statut) {
-        this.statut = statut;
-    }
-
-  
-    
+    } 
 }

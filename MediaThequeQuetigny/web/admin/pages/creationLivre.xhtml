@@ -64,7 +64,7 @@
             </h:form> </center>
       
 <h:form>
-    <p:fileUpload fileUploadListener="#{TelechargerImage.handleFileUpload}" mode="advanced" dragDropSupport="true"
+    <p:fileUpload fileUploadListener="#{livreController.handleFileUpload(event)}" mode="advanced" dragDropSupport="true"
                           update="messages" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
  
     <p:growl id="messages" showDetail="true" />
