@@ -69,6 +69,7 @@ public class DAO_IMPL<T> implements Serializable {
      *
      */
     public void delete(T entityObj) {
+        entityObj=em.merge(entityObj);
         em.remove(entityObj);
     }
 

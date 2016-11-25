@@ -296,7 +296,7 @@ public class Utilisateur implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Utilisateur[ idUtilisateur=" + idUtilisateur + " ]";
+        return login;
     }
     
 }
