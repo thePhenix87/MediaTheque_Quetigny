@@ -15,11 +15,14 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <p:growl id="msg" showDetail="true" autoUpdate="true"/>
+        <p:messages id="msg" showDetail="true" autoUpdate="true"/>
         <h:form id="form">
             <p:dataTable value="#{commentaireController.commentaires}" var="commentaire">
             <p:column headerText="Date">
-                <h:outputText value="#{commentaire.dateCommentaire}"/>
+                <h:outputText value="#{commentaireController.sdf.format(commentaire.dateCommentaire)}"/>
+            </p:column>
+            <p:column headerText="Id ">
+                <h:outputText value="#{commentaire.idCommentaire}"/>
             </p:column>
             <p:column headerText="Utilisateur">
                 <h:outputText value="#{commentaire.idUtilisateur}"/>

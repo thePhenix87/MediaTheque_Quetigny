@@ -6,11 +6,14 @@
 package controller;
 
 import dao.CommentaireDao;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import model.Commentaire;
@@ -26,30 +29,35 @@ public class CommentaireController {
     @Inject
     private CommentaireDao commentaireDao;
     private List<Commentaire> commentaires;
+    private SimpleDateFormat sdf;
     
     public CommentaireController()
     {
         commentaires=new ArrayList<Commentaire>();
+        sdf = new SimpleDateFormat("d MMMM yyyy");
     }
     
     @PostConstruct
     public void init()
     {
         commentaires = commentaireDao.getAll();
-        Collections.sort(commentaires);
+        Collections.sort(commentaires,Collections.reverseOrder());
     }
     
     public void supprimerCommentaire(Commentaire c)
     {
         commentaireDao.delete(c);
         commentaires.remove(c);
-        System.out.println("Suppression de "+c+" ("+c.getTexte()+")");
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "OK", "Commentaire n°"+c.getIdCommentaire()+" supprimé"));
     }
     
     public void validerCommentaire(Commentaire c)
     {
         commentaireDao.update(c);
-        System.out.println("ok");
+        if (c.getAffiche())
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "OK", "Commentaire n°"+c.getIdCommentaire()+" affiché"));
+        else
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "OK", "Commentaire n°"+c.getIdCommentaire()+" caché"));
     }
 
     public CommentaireDao getCommentaireDao() {
@@ -66,5 +74,13 @@ public class CommentaireController {
 
     public void setCommentaires(List<Commentaire> commentaires) {
         this.commentaires = commentaires;
+    }
+
+    public SimpleDateFormat getSdf() {
+        return sdf;
+    }
+
+    public void setSdf(SimpleDateFormat sdf) {
+        this.sdf = sdf;
     }
 }
