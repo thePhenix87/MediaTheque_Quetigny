@@ -16,7 +16,6 @@ import javax.enterprise.context.RequestScoped;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import model.Categorie;
 import utilitaires.SqlParam;
 
 /**
@@ -60,6 +59,18 @@ public class LivreController {
         params.put("titre", title);
         return (Livre) livreDao.execNamedQuery("Livre.findByTitre",params ).get(0);
     }
+    
+     //AJOUTER UNE NOTE
+    /* public void ajouterLivre() {
+         livre. setIdCours(this.cours);
+         note.setIdEleve(this.eleve);      
+         note.setDate(new Date());  
+         daon.ecrire(note);
+         daoe.maj(eleve);
+         listNotes.add(note);
+         FacesMessage msg = new FacesMessage("La note de "+note.getIdEleve().getNom()+" "+note.getIdEleve().getPrenom()+" matière: '"+note.getIdCours().getNom()+" "+"':"+note.getNote()+" a bien été Ajouté" );
+         FacesContext.getCurrentInstance().addMessage(null, msg);   
+    } */  
     
     //Getters & Setters
     public LivreDao getLivreDao() {

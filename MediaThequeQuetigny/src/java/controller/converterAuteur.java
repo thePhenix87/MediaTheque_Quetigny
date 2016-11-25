@@ -13,8 +13,6 @@ import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
 import model.Auteur;
-import model.Categorie;
-import model.Editeur;
 
 /**
  *
