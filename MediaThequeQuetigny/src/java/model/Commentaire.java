@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Commentaire.findByTexte", query = "SELECT c FROM Commentaire c WHERE c.texte = :texte")
     , @NamedQuery(name = "Commentaire.findByDateCommentaire", query = "SELECT c FROM Commentaire c WHERE c.dateCommentaire = :dateCommentaire")
     , @NamedQuery(name = "Commentaire.findByAffiche", query = "SELECT c FROM Commentaire c WHERE c.affiche = :affiche")})
-public class Commentaire implements Serializable {
+public class Commentaire implements Serializable, Comparable<Commentaire> {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -166,5 +166,9 @@ public class Commentaire implements Serializable {
     public String toString() {
         return "fr.afpa.mediatheque.model.Commentaire[ idCommentaire=" + idCommentaire + " ]";
     }
-    
+
+    @Override
+    public int compareTo(Commentaire o) {
+        return dateCommentaire.compareTo(o.dateCommentaire);
+    }    
 }
