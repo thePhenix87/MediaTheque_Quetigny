@@ -33,12 +33,10 @@ and open the template in the editor.
             <p:column headerText="Texte">
                 <h:outputText value="#{commentaire.texte}"/>
             </p:column>
-            <p:column headerText="Valider le commentaire">
-                <p:selectBooleanCheckbox value="#{commentaire.affiche} ">
-                    <p:ajax update=":msg" oncomplete="affiche()"/>
-                    <p:remoteCommand name="affiche" actionListener="#{commentaireController.validerCommentaire(commentaire)}" update=":form">
-                        <f:param name="page" value="administrateurModeration"/>
-                    </p:remoteCommand>>
+            <p:column headerText="Commentaire visible">
+                <p:selectBooleanCheckbox value="#{commentaire.affiche}">
+                    <f:param name="page" value="administrateurModeration"/>
+                    <p:ajax process="@this"  listener="#{commentaireController.validerCommentaire(commentaire)}" event="change" update=":msg" partialSubmit="true"/>
                 </p:selectBooleanCheckbox>
             </p:column>
             <p:column headerText="Supprimer le commentaire">

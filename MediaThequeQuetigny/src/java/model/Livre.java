@@ -215,7 +215,7 @@ public class Livre implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.afpa.mediatheque.model.Livre[ codeLivre=" + codeLivre + " ]";
+        return titre;
     }
     
 }
