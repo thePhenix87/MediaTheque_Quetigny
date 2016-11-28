@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -141,6 +142,12 @@ public class Nouvelle implements Serializable {
     
     //Méthodes ajoutées 
     public String renvoyerDescriptionCourte(){
-        return this.getDateNouvelle().toString();
+        SimpleDateFormat formatDateSimple = new SimpleDateFormat("dd-MM-yyyy"); 
+        String dateStr = formatDateSimple.format(this.getDateNouvelle());
+        if(this.getTexte().length()>50){
+            return dateStr+" "+this.getTexte().substring(0, 50);
+        }else{
+            return dateStr+" "+this.getTexte();
+        }
     }
 }

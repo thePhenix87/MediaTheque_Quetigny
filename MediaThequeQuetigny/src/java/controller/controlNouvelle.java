@@ -61,7 +61,6 @@ public class controlNouvelle implements Serializable {
     public void poster(){
         FacesContext context = FacesContext.getCurrentInstance();
         System.out.println("on poste");
-        nouvelle.setIdNouvelle(1);
         try{
             nouvelleDao.update(nouvelle);
             context.addMessage(null, new FacesMessage("Nouvelle ajoutée"));
