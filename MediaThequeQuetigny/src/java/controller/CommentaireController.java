@@ -33,7 +33,7 @@ public class CommentaireController {
     
     public CommentaireController()
     {
-        commentaires=new ArrayList<Commentaire>();
+        commentaires=new ArrayList<>();
         sdf = new SimpleDateFormat("d MMMM yyyy");
     }
     

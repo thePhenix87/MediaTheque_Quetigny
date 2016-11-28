@@ -1,0 +1,111 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 1 nov. 2016, 00:10:32
+    Author     : Tarik
+*/
+
+body{
+    background-color: #F6F4F1!important;
+}
+.indicatorser{
+  background: #26a69a !important;
+  filter: alpha(opacity=60);
+  /* IE */
+  -moz-opacity: 0.9;
+  /* Mozilla */
+  opacity: 0.9;
+  /* CSS3 */
+
+}
+.topnav {
+    background-color: #2e5d58 !important;
+    height: 35px !important;
+    line-height: 35px !important;
+}
+
+nav {
+    color: #fff;
+    background-color: #26a69a;
+    width: 100%;
+    height: 56px;
+    line-height: 56px;
+}
+.proposition-img{
+    height: 150px !important;
+    width: 215px !important;
+}
+.home-carousel{height: 350px !important;}
+.home-carousel img {height: 250px; width: auto;}
+.select-wrapper input.select-dropdown {
+    margin-bottom: 0px;
+    border: 0px;
+}
+.ui-row-editor span.maclass{
+
+
+    background-image: url("http://www.primefaces.org/showcase/javax.faces.resource/images/ui-icons_222222_256x240.png.xhtml?ln=primefaces-omega");
+    background: #26a69a;
+    display: block;
+    text-indent: -99999px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: -64px -112px;
+    background-position: -64px -112px;
+        height: 15px;
+    width: 15px;
+    display: block !important;
+    cursor: pointer;
+}
+.searchFields{
+    margin: 0px !important;
+    padding: 0px !important;
+}
+.nav-cart a {
+    position: relative;
+    display: block;
+    padding: 18px 0 0 38px;
+
+    font-size: .9em;
+
+    
+    z-index: 3;
+}
+
+.nav-cart a:before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 0;
+    width: 29px;
+    height: 29px;
+    overflow: hidden;
+    background: url(../img/header-sprite.png) no-repeat -100px -50px;
+}
+
+.nav-cart .text {
+    max-width: 40px;
+    display: block;
+    overflow: hidden;
+
+}
+.nav-cart .cart-number {
+    position: absolute;
+    top: 2px;
+    left: 55px;
+    padding: 0 2px;
+    min-width: 25px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #e62e04;
+    color: #fff;
+    font-size: 12px;
+}
+#center-nav-box input[type=text] {
+    border:0px ;padding: 0 10px !important;margin: 0 !important
+}

@@ -10,15 +10,23 @@ and open the template in the editor.
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
- <h:head>
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/adminTemplat.xhtml" >
+    <ui:define name="header">
+        <title>Ajouter Nouveau utilisateur</title>
+    </ui:define>
 
-     <title>Form users</title>
-    </h:head>
+    <ui:define name="content">
+        <h:head>
+
+
+        </h:head>
+        <center>
+            <h2>Nouveau Utilisateur</h2>
         <h:form id="form">
             <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" globalOnly="true"/>
             <p:panelGrid columns="3">
-                
+
                 <h:outputText value="Nom:" />
                 <p:inputText id="nom" value="#{utilisateurController.nouvelutilisateur.nom}"/>
                 <p:message for="nom"/>
@@ -26,17 +34,17 @@ and open the template in the editor.
                 <h:outputText value="Prenom:" />
                 <p:inputText id="prenom" value="#{utilisateurController.nouvelutilisateur.prenom}" />
                 <p:message for="prenom"/>
-                
+
                 <h:outputText value="Session de formation" />
                 <p:selectBooleanCheckbox id="sessionFormation" value="#{utilisateurController.nouvelutilisateur.sessionFormation}" />
                 <p:message for="sessionFormation"/>
-                
+
                 <h:outputText value="Type" />
                 <p:selectOneMenu id="type" value="#{utilisateurController.nouvelutilisateur.type}" style="width:125px" >
-                <f:selectItem itemLabel="--------" itemValue="" />
-                <f:selectItem itemLabel="Stagiaire" itemValue="Stagiaire" />
-                <f:selectItem itemLabel="Formateur" itemValue="Formateur" />
-                <f:selectItem itemLabel="Personnel" itemValue="Personnel" />
+                    <f:selectItem itemLabel="--------" itemValue="" />
+                    <f:selectItem itemLabel="Stagiaire" itemValue="Stagiaire" />
+                    <f:selectItem itemLabel="Formateur" itemValue="Formateur" />
+                    <f:selectItem itemLabel="Personnel" itemValue="Personnel" />
                 </p:selectOneMenu>
                 <p:message for="type"/>
 
@@ -44,39 +52,41 @@ and open the template in the editor.
                 <h:outputText value="Mail" />
                 <p:inputText id="mail" value="#{utilisateurController.nouvelutilisateur.mail}"/>
                 <p:message for="mail"/>
-                
+
                 <h:outputText value="Date de naissance" />         
                 <p:calendar id="dateNaissance" value="#{utilisateurController.nouvelutilisateur.dateNaissance}" locale="fr" yearRange="c-100:" navigator="true" pattern="dd-MM-yyyy" />
                 <p:message for="dateNaissance"/>
-                
+
                 <h:outputText value="Telephone" />
                 <p:inputText id="telephone" value="#{utilisateurController.nouvelutilisateur.telephone}"/>
                 <p:message for="telephone"/>
-                
+
                 <h:outputText value="Adresse" />
                 <p:inputText id="adresse" value="#{utilisateurController.nouvelutilisateur.adresse}"/>
                 <p:message for="adresse"/>
-                
+
                 <h:outputText value="Ville:" />
                 <p:inputText id="ville" value="#{utilisateurController.nouvelutilisateur.ville}"/>
                 <p:message for="ville"/>
-                
+
                 <h:outputText value="Code postal" />
                 <p:inputText id="cp" value="#{utilisateurController.nouvelutilisateur.cp}"/>
                 <p:message for="cp"/>
-                
+
                 <h:outputText value="Login" />
                 <p:inputText id="login" value="#{utilisateurController.nouvelutilisateur.login}"/>
                 <p:message for="login"/>
-                
+
                 <h:outputText value="Mot de passe:" />
                 <p:password id="mdp" value="#{utilisateurController.nouvelutilisateur.mdp}"/>
                 <p:message for="mdp"/>
-                
+
                 <p:commandButton value="Valide" action="#{utilisateurController.creerUtilisateur()}" update=":form">
                     <f:param name="page" value="utilisateur"/>
                 </p:commandButton>
-                
+
             </p:panelGrid>
-        </h:form>    
+        </h:form>  
+        </center>
+    </ui:define>
 </ui:composition>
