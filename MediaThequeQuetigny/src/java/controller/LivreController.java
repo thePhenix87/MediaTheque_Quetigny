@@ -44,16 +44,13 @@ public class LivreController {
     private CategorieController categorieCtrl;
     private Livre livre;
     private List<Livre> listLivres ;
-    
     private FacesContext context;
     
     public LivreController() {
         this.params = new HashMap<String,String>();
          // SqlParam sp = new SqlParam("titre=>livre","date=>21/13/14","date=>21/13/14");  
-        livre = new Livre(); 
-       
-        
-         context=FacesContext.getCurrentInstance(); //gestion des messages   
+        livre = new Livre();    
+        context=FacesContext.getCurrentInstance(); //gestion des messages   
     }
 
     @PostConstruct
@@ -81,21 +78,7 @@ public class LivreController {
         FacesContext.getCurrentInstance().addMessage(null, message);
          System.out.println("TELECHARGEMENT");
     }
-     //AJOUTER UN Livre
-    /* public void ajouterLivre() {
-         livre.setIdAuteur(auteurCtrl.au);
-         
-         livre.setTitre();
-         listLivres.add(livre.);
-         livre.setIdCours(this.cours);
-         note.setIdEleve(this.eleve);      
-         note.setDate(new Date());  
-         daon.ecrire(note);
-         daoe.maj(eleve);
-         listNotes.add(note);
-         FacesMessage msg = new FacesMessage("La note de "+note.getIdEleve().getNom()+" "+note.getIdEleve().getPrenom()+" matière: '"+note.getIdCours().getNom()+" "+"':"+note.getNote()+" a bien été Ajouté" );
-         FacesContext.getCurrentInstance().addMessage(null, msg);   
-    }  */
+    
     
     //GETTERS & SETTERS
     public LivreDao getLivreDao() {
