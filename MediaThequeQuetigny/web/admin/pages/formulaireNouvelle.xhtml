@@ -37,6 +37,7 @@ and open the template in the editor.
     <!-- A FINIR, si on édite on afficher "éditer", sinon "écrire nouvelle" -->
     <p:fieldset legend="#{controlNouvelle.sousTitreEcrireModifier} une nouvelle" id="sousTitreEcrireModifier" style="margin-bottom:20px">
         <h:form id="formulaireEcrireNouvelle">
+         <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" globalOnly="true"/>
             <h:panelGrid columns="3" cellpadding="5">
                 <h:outputLabel for="texte" value="Texte de la nouvelle"/>
                 <p:inputTextarea id="texte" rows="6" cols="33" value="#{controlNouvelle.nouvelle.texte}"/>
@@ -54,7 +55,7 @@ and open the template in the editor.
                     <f:selectItems var="utilisateur" itemLabel="#{utilisateur.getLogin()}" value="#{controlNouvelle.utilisateurDao.all}" />
                 </p:selectOneMenu>
                 <br/>
-                <p:commandButton update=":growl" value="#{controlNouvelle.sousTitreEcrireModifier} la nouvelle" id="boutonValiderNouvelle" actionListener="#{controlNouvelle.poster()}">
+                <p:commandButton update=":formulaireEcrireNouvelle" value="#{controlNouvelle.sousTitreEcrireModifier} la nouvelle" id="boutonValiderNouvelle" actionListener="#{controlNouvelle.poster()}">
                     <f:param name="page" value="formulaireNouvelle" />
                 </p:commandButton>
             </h:panelGrid>

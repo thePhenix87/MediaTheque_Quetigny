@@ -37,7 +37,7 @@ import java.text.SimpleDateFormat;
     , @NamedQuery(name = "Nouvelle.findByIdNouvelle", query = "SELECT n FROM Nouvelle n WHERE n.idNouvelle = :idNouvelle")
     , @NamedQuery(name = "Nouvelle.findByTexte", query = "SELECT n FROM Nouvelle n WHERE n.texte = :texte")
     , @NamedQuery(name = "Nouvelle.findByDateNouvelle", query = "SELECT n FROM Nouvelle n WHERE n.dateNouvelle = :dateNouvelle")})
-public class Nouvelle implements Serializable {
+public class Nouvelle implements Serializable, Comparable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -150,4 +150,11 @@ public class Nouvelle implements Serializable {
             return dateStr+" "+this.getTexte();
         }
     }
+
+    @Override
+    public int compareTo(Object o) {
+       return this.dateNouvelle.compareTo((Date)o);
+    }
+
+
 }
