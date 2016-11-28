@@ -6,10 +6,11 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Nouveau livre</title>     
+        Nombre de livres: #{livreController.livres.size()}<br></br>
+        Nombre de catégorie: #{categorieController.listCategorie.size()}
     </h:head>
     <h:body><center><h2>Ajouter un livre</h2></center>
-        #{livreController.livres.size()}
-        #{categorieController.listCategorie.size()}
+   
         <center>
             <h:form id="formAjouter">
                 <p:growl id="msgs" showDetail="true" autoUpdate="true"/>
@@ -41,7 +42,7 @@
                         <f:selectItems value="#{auteurController.listAuteur}" 
                                        itemValue="#{auteur}"  
                                        var="auteur"
-                                       itemLabel="#{auteur.nom}" />       
+                                       itemLabel="#{auteur.nom} #{auteur.prenom}" />       
                     </p:selectOneMenu>  
                       
                     <p:outputLabel for="statut" value="Statut" />

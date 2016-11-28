@@ -28,7 +28,6 @@ public class CategorieController {
     @Inject
     private CategorieDao catDao;
     private HashMap params;
-    
     private Categorie categorie;
     private List<Categorie> listCategorie;
 
@@ -38,11 +37,11 @@ public class CategorieController {
           categorie = new Categorie(); 
           listCategorie = new ArrayList<>();
     }
-      /*Initialise la liste de catégorie*/
+    
+    /*Initialise la liste de catégorie*/
     @PostConstruct
     public void initCategorie(){
-         listCategorie = catDao.getAll();
-         System.out.println(listCategorie);
+         listCategorie = catDao.getAll();  
     }
     
     //GETTERS & SETTERS

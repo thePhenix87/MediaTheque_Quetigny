@@ -39,8 +39,8 @@ public class EditeurController {
     public void initEditeur(){
          listEditeur = editeurDao.getAll();
     }
+    
     //Getters & Setters
-
     public EditeurDao getEditeurDao() {
         return editeurDao;
     }

@@ -72,6 +72,25 @@ public class LivreController {
         return (Livre) livreDao.execNamedQuery("Livre.findByTitre",params ).get(0);
     }
     
+     //AJOUTER UNE NOTE
+   /*  public void ajouterLivre() {
+        
+         livre.setIdEditeur(this.editeurCtrl.getEditeur());
+         livre.setIdAuteur(auteurCtrl.getAuteur());
+         livre.setIdCategorie(categorieCtrl.getCategorie());
+         livre.setTitre(titre);
+         livre.setAnneeEdition(anneeEdition);
+         livre.setDescription(description);
+         
+         note. setIdCours(this.cours);
+         note.setIdEleve(this.eleve);      
+         note.setDate(new Date());  
+         daon.ecrire(note);
+         daoe.maj(eleve);
+         listNotes.add(note);
+         FacesMessage msg = new FacesMessage("La note de "+note.getIdEleve().getNom()+" "+note.getIdEleve().getPrenom()+" matière: '"+note.getIdCours().getNom()+" "+"':"+note.getNote()+" a bien été Ajouté" );
+         FacesContext.getCurrentInstance().addMessage(null, msg);     
+    }   */
     /*TELECHARGER UNE IMAGE*/
      public void handleFileUpload(FileUploadEvent event) {
         FacesMessage message = new FacesMessage("Le téléchargement", event.getFile().getFileName() + " est terminé.");

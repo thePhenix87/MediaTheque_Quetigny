@@ -37,6 +37,7 @@ public class AuteurController {
     public void initAuteur(){
          listAuteur = auteurDao.getAll();     
     }
+    
     //Getters & Setters
 
     public AuteurDao getAuteurDao() {
