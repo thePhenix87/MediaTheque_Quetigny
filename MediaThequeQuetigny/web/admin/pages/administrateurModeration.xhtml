@@ -33,7 +33,7 @@ and open the template in the editor.
                 <h:outputText value="#{commentaire.codeLivre}"/>
             </p:column>
             <p:column headerText="Note">
-                <h:outputText value="#{commentaire.note}/5"/>
+                <p:rating value="#{commentaire.note}" readonly="true"/>
             </p:column>
             <p:column headerText="Texte">
                 <h:outputText value="#{commentaire.texte}"/>
@@ -41,7 +41,7 @@ and open the template in the editor.
             <p:column headerText="Commentaire visible">
                 <p:selectBooleanCheckbox value="#{commentaire.affiche}">
                     <f:param name="page" value="administrateurModeration"/>
-                    <p:ajax process="@this"  listener="#{commentaireController.validerCommentaire(commentaire)}" event="change" update=":msg" partialSubmit="true"/>
+                    <p:ajax listener="#{commentaireController.validerCommentaire(commentaire)}" update=":msg"/>
                 </p:selectBooleanCheckbox>
             </p:column>
             <p:column headerText="Supprimer le commentaire">
