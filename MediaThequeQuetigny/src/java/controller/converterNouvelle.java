@@ -9,29 +9,30 @@ package controller;
  *
  * @author aka
  */
-import dao.UtilisateurDao;
+import dao.NouvelleDao;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
-import model.Utilisateur;
+import model.Nouvelle;
 
 @RequestScoped
 @Named
-public class converterUtilisateur implements Converter{
+public class converterNouvelle implements Converter{
     @Inject
-    private UtilisateurDao utilisateurDao;
+    private NouvelleDao nouvelleDao;
     
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        return utilisateurDao.find(Integer.parseInt(value));
+        System.out.println(value);
+        return nouvelleDao.find(Integer.parseInt(value));
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        return String.valueOf(((Utilisateur)value).getIdUtilisateur());
+        return String.valueOf(((Nouvelle)value).toString());
     }
 
 

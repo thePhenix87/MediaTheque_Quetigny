@@ -136,7 +136,11 @@ public class Nouvelle implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.afpa.mediatheque.model.Nouvelle[ idNouvelle=" + idNouvelle + " ]";
+        return String.valueOf(idNouvelle);
     }
     
+    //Méthodes ajoutées 
+    public String renvoyerDescriptionCourte(){
+        return this.getDateNouvelle().toString();
+    }
 }
