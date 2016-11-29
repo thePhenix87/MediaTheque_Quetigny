@@ -28,9 +28,10 @@ public class EmpruntDao extends DAO_IMPL<Emprunt> {
     }
 
     public List<Emprunt> getListSansDateRetour(Utilisateur u) {
+        System.out.println(u.getIdUtilisateur());
         Calendar cm7 = Calendar.getInstance();
         cm7.add(Calendar.DATE, -7);
-        Query q = this.getEm().createQuery("SELECT e FROM Emprunt e where  e.idUtilisateur =:iduser and  e.dateRetour =null OR e.dateEmprunt>:date order by e.dateEmprunt desc", Emprunt.class);
+        Query q = this.getEm().createQuery("SELECT e FROM Emprunt e where (e.idUtilisateur =:iduser and  e.dateRetour =null) OR (e.dateEmprunt>:date AND e.idUtilisateur =:iduser) order by e.dateEmprunt desc", Emprunt.class);
         q.setParameter("iduser", u);
         q.setParameter("date", cm7.getTime());
         List<Emprunt> l = q.getResultList();
@@ -38,10 +39,10 @@ public class EmpruntDao extends DAO_IMPL<Emprunt> {
         if (l.size() < 1) {
             return null;
         }
+      
         return l;
     }
 
-    
     public List<Emprunt> getList(Utilisateur u) {
         Query q = this.getEm().createQuery("SELECT e FROM Emprunt e where  e.idUtilisateur =:iduser order by e.dateEmprunt desc", Emprunt.class);
         q.setParameter("iduser", u);
@@ -57,18 +58,13 @@ public class EmpruntDao extends DAO_IMPL<Emprunt> {
         Query q = this.getEm().createQuery("SELECT e FROM Emprunt e where e.idUtilisateur =:iduser and e.dateRetour =null AND e.idExemplaire=:ex", Emprunt.class);
         q.setParameter("iduser", u);
         q.setParameter("ex", ex);
-        
-        try
-        {
-        Emprunt e = (Emprunt) q.getSingleResult();
-        return e;    
-        }
-        
-        catch (NoResultException NRE)
-        {
+
+        try {
+            Emprunt e = (Emprunt) q.getSingleResult();
+            return e;
+        } catch (NoResultException NRE) {
             return null;
         }
-        
 
     }
 }
