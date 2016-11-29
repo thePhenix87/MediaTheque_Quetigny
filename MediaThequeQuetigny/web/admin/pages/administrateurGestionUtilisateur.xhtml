@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+    
+      xmlns:p="http://primefaces.org/ui">
+    
+       <ui:composition  template="/adminTemplat.xhtml">
+    <ui:define name="content">
+       <h:form id="form">
+    <p:dataGrid var="u" value="#{controllerAdministrateur.listUtil}" columns="1" 
+        rows="50" paginator="true" id="utils"
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+        rowsPerPageTemplate="25,50,100">
+ 
+        <f:facet name="header">
+            Gestion des utilisateurs
+        </f:facet>
+ 
+        <p:panel style="text-align:center">
+            
+            <p:panelGrid columns="5" >
+                
+                <h:outputText value="#{u.idUtilisateur}"  />
+                
+                <h:outputText value="#{u.nom}"  />
+                
+                <h:outputText value="#{u.prenom}" />
+                
+                <h:outputText value="#{u.type}" />
+               
+ 
+                <p:commandLink update=":form:utilDetail" oncomplete="PF('utilDialog').show()" title="Détails">
+                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+                    <f:setPropertyActionListener value="#{u}" target="#{controllerAdministrateur.utilselected}" />
+                </p:commandLink>
+            </p:panelGrid>
+        </p:panel>
+ 
+        
+        
+        
+        
+    </p:dataGrid>
+ 
+    <p:dialog header="Détails utilisateur" widgetVar="utilDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="utilDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty controllerAdministrateur.utilselected}" >
+ 
+                <h:outputLabel value="Id:" />
+                <h:outputText value="#{controllerAdministrateur.utilselected.idUtilisateur}" />
+ 
+                <h:outputLabel value="Nom:" />
+                <h:inputText value="#{controllerAdministrateur.utilselected.nom}" />
+ 
+                <h:outputLabel value="Prenom:" />
+                <h:inputText value="#{controllerAdministrateur.utilselected.prenom}" />
+ 
+                <h:outputLabel value="Formation:" />
+                <p:selectOneMenu id="formation" value="#{controllerAdministrateur.utilselected.sessionFormation}" style="width:150px">
+                <f:selectItem itemLabel="Oui" itemValue="true" />
+                <f:selectItem itemLabel="Non" itemValue="false" />
+                </p:selectOneMenu>
+
+                <h:outputLabel value="Type:" />
+                <p:selectOneMenu id="type" value="#{controllerAdministrateur.utilselected.type}" style="width:150px">
+                <f:selectItem itemLabel="Utilisateur" itemValue="utilisateur" />
+                <f:selectItem itemLabel="Administrateur" itemValue="administrateur" />
+                <f:selectItem itemLabel="Employé en formation" itemValue="formation" />
+                </p:selectOneMenu>
+
+                <h:outputLabel value="Mail:" />
+                <h:inputText value="#{controllerAdministrateur.utilselected.mail}" />
+
+                <h:outputLabel value="Date de naissance:" />
+                <p:calendar id="buttonCalendar" value="#{controllerAdministrateur.utilselected.dateNaissance}" showOn="buttonCalendar" />
+
+                <h:outputLabel value="Téléphone:" />
+                <h:inputText value="#{controllerAdministrateur.utilselected.telephone}" />
+
+                <h:outputLabel value="Adresse:" />
+                <h:inputText value="#{controllerAdministrateur.utilselected.adresse}" />
+
+                <h:outputLabel value="Ville:" />
+                <h:inputText value="#{controllerAdministrateur.utilselected.ville}" />
+
+                <h:outputLabel value="CP:" />
+                <h:inputText value="#{controllerAdministrateur.utilselected.cp}" />
+                
+                
+                <p:commandButton value="Supprimer" actionListener="#{controllerAdministrateur.supprimerUtil(controllerAdministrateur.utilselected)}" update="form" />
+                    
+                <p:commandButton value="Modifier" actionListener="#{controllerAdministrateur.modifierUtil(controllerAdministrateur.utilselected)}" update="form" />
+                
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+</h:form>
+            
+            
+       
+    </ui:define>
+    </ui:composition>
+</html>
