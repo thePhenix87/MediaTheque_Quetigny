@@ -51,16 +51,19 @@ public class GestionEmpruntRetour {
         List<Emprunt> listE = new ArrayList<Emprunt>();
     }
 
-    public void Emprunt() {
+    public void emprunt() {
         Date d = new Date();
         Utilisateur u = udao.find(Integer.parseInt(user));
         Exemplaire ex = exdao.find(Integer.parseInt(livre));
-
+        System.out.println(ex.getStatut()+"statut exemplaire");
+        System.out.println(u.getIdUtilisateur());
         List<Emprunt> l = edao.getListSansDateRetour(u);
+        if (!ex.getStatut()) {
+            this.affichermsg(6);
+        } 
+        else if (l == null || this.verifierposibilite(l)) {
 
-        if (l == null || this.verifierposibilite(l)) {
-
-            this.affichermsg(3);
+            
             this.stockerEmprunt(u, ex, new Date());
         }
 
@@ -100,7 +103,7 @@ public class GestionEmpruntRetour {
         return true;
     }
 
-    public void Retour() {
+    public void retour() {
         Utilisateur u = udao.find(Integer.parseInt(user));
         Exemplaire ex = exdao.find(Integer.parseInt(livre));
         Emprunt e = this.edao.getEmpruntUserExe(u, ex);
@@ -109,6 +112,8 @@ public class GestionEmpruntRetour {
         } else {
             e.setDateRetour(new Date());
             this.edao.update(e);
+            e.getIdExemplaire().setStatut(true);
+            this.exdao.update(e.getIdExemplaire());
             this.affichermsg(5);
         }
 
@@ -140,9 +145,10 @@ public class GestionEmpruntRetour {
                 message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Emprunt pas Trouve", "Acun information liee aux donnees");
                 break;
             case 5:
-                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Emprunt effectue", "L'emprunt ete registre");
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Rendre effectue", "Le Retour a ete registre");
                 break;
             case 6:
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Exemplaire pas disponible", "Exemplaire pas disponible");
                 break;
         }
 
@@ -157,6 +163,8 @@ public class GestionEmpruntRetour {
         e.setDateEmprunt(d);
         e.setDateRetour(null);
         edao.create(e);
+        ex.setStatut(false);
+        exdao.update(ex);
         this.affichermsg(3);
     }
 
