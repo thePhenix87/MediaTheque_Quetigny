@@ -5,12 +5,15 @@
  */
 package dao;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import model.Emprunt;
+import model.Exemplaire;
 import model.Utilisateur;
 
 /**
@@ -25,8 +28,11 @@ public class EmpruntDao extends DAO_IMPL<Emprunt> {
     }
 
     public List<Emprunt> getListSansDateRetour(Utilisateur u) {
-        Query q = this.getEm().createQuery("SELECT e FROM Emprunt e where  e.idUtilisateur =:iduser and  e.dateRetour =null order by e.dateEmprunt desc", Emprunt.class);
+        Calendar cm7 = Calendar.getInstance();
+        cm7.add(Calendar.DATE, -7);
+        Query q = this.getEm().createQuery("SELECT e FROM Emprunt e where  e.idUtilisateur =:iduser and  e.dateRetour =null OR e.dateEmprunt>:date order by e.dateEmprunt desc", Emprunt.class);
         q.setParameter("iduser", u);
+        q.setParameter("date", cm7.getTime());
         List<Emprunt> l = q.getResultList();
 
         if (l.size() < 1) {
@@ -36,7 +42,7 @@ public class EmpruntDao extends DAO_IMPL<Emprunt> {
     }
 
     
-     public List<Emprunt> getList(Utilisateur u) {
+    public List<Emprunt> getList(Utilisateur u) {
         Query q = this.getEm().createQuery("SELECT e FROM Emprunt e where  e.idUtilisateur =:iduser order by e.dateEmprunt desc", Emprunt.class);
         q.setParameter("iduser", u);
         List<Emprunt> l = q.getResultList();
@@ -45,5 +51,24 @@ public class EmpruntDao extends DAO_IMPL<Emprunt> {
             return null;
         }
         return l;
+    }
+
+    public Emprunt getEmpruntUserExe(Utilisateur u, Exemplaire ex) {
+        Query q = this.getEm().createQuery("SELECT e FROM Emprunt e where e.idUtilisateur =:iduser and e.dateRetour =null AND e.idExemplaire=:ex", Emprunt.class);
+        q.setParameter("iduser", u);
+        q.setParameter("ex", ex);
+        
+        try
+        {
+        Emprunt e = (Emprunt) q.getSingleResult();
+        return e;    
+        }
+        
+        catch (NoResultException NRE)
+        {
+            return null;
+        }
+        
+
     }
 }
