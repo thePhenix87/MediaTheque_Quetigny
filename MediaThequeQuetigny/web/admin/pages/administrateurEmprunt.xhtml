@@ -8,13 +8,53 @@
         <title>Ajouter ou modifier une nouvelle</title>
     </ui:define>
     <ui:define name="content">
-        
+
         <h:form>
             <p:growl id="growl" life="10000" />
-            <p:inputText id="livre" label="Id Livre" value="#{gestionEmpruntRetour.livre}" />
+            <p:outputLabel value="Id Exemplaire"/> 
+            <p:inputText id="livre" label="Id Exemplaire" value="#{gestionEmpruntRetour.livre}" />
+            <br/>
+            <p:outputLabel value="Id User"/> 
             <p:inputText id="user" label="Id User" value="#{gestionEmpruntRetour.user}" />
+            <br/>
             <p:commandButton value="Retour" id="retour" update="growl" actionListener="#{gestionEmpruntRetour.Retour}" styleClass="ui-priority-primary" />
             <p:commandButton value="Empreunt" id="emprunt" update="growl" actionListener="#{gestionEmpruntRetour.Emprunt}" styleClass="ui-priority-primary" />
+            <p:commandButton value="Get List d'Emprunts" id="getlist" update="listE" actionListener="#{gestionEmpruntRetour.getListEmprunts}" styleClass="ui-priority-primary" />
+
+
+            <p:dataTable style="text-align: center" liveResize="true" id="listE" value="#{gestionEmpruntRetour.listE}" var="emprunt">
+                <p:column headerText="Id Emprunt">
+                    <h:outputText value="#{emprunt.idEmprunt}" />
+                </p:column>
+
+                <p:column headerText="Id Exemplaire">
+                    <h:outputText value="#{emprunt.idExemplaire.idExemplaire}" />
+                </p:column>
+
+                <p:column headerText="Titre">
+                    <h:outputText value="#{emprunt.idExemplaire.codeLivre.titre}" />
+                </p:column>
+
+                <p:column headerText="Code Livre">
+                    <h:outputText value="#{emprunt.idExemplaire.codeLivre.codeLivre}" />
+                </p:column>
+
+                <p:column headerText="Date Emprunt">
+                    <h:outputText value="#{emprunt.dateEmprunt.day}/#{emprunt.dateEmprunt.month}/#{emprunt.dateEmprunt.year}" />
+                </p:column>
+
+                <p:column headerText="Date Retour">
+                    <h:outputText value="#{emprunt.dateRetour.day}/#{emprunt.dateRetour.month}/#{emprunt.dateRetour.year}" />
+                </p:column>
+
+            </p:dataTable>
+
+
+
+
+
+
+
         </h:form>
 
     </ui:define>
