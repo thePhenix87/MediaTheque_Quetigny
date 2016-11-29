@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+
+        <ui:composition template="/userTemplate.xhtml">
+
+            <ui:define name="content">
+              <h:outputLabel value="Pseudo : #{utilisateurController.utilisateur.login} "/>
+        <h:outputLabel value=" Nom : "/>
+        
+        Historique livre empruntés :
+        <p:dataTable value="#{utilisateurController.utilisateur.empruntList}" var="emprunt" emptyMessage="Cet utilisateur n'a emprunté aucun livre">
+            <p:column headerText="Date d'emprunt">
+                <h:outputText value="#{emprunt.dateEmprunt}"/>
+            </p:column>
+            <p:column headerText="Date de retour">
+                <h:outputText value="#{emprunt.dateRetour}"/>
+            </p:column>
+            <p:column headerText="Livre">
+                <h:outputText value="#{emprunt.idExemplaire.codeLivre}"/>
+            </p:column>
+        </p:dataTable>
+        
+        Derniers commentaires :
+        <p:dataTable value="#{utilisateurController.utilisateur.commentaireList}" var="commentaire" emptyMessage="Cet utilisateur n'a laissé aucun commentaire">
+            <p:column headerText="Date">
+                <h:outputText value="#{commentaire.dateCommentaire}"/>
+            </p:column>
+            <p:column headerText="Livre">
+                <h:outputText value="#{commentaire.codeLivre}"/>
+            </p:column>
+            <p:column headerText="Note">
+                <h:outputText value="#{commentaire.note}/5"/>
+            </p:column>
+            <p:column headerText="Texte">
+                <h:outputText value="#{commentaire.texte}"/>
+            </p:column>
+        </p:dataTable>
+            </ui:define>
+            <ui:insert name="left">
+                 <h:outputLabel value="Pseudo : #{utilisateurController.utilisateur.login}"/>
+        <h:outputLabel value="Nom : "/>
+            </ui:insert>
+
+        </ui:composition>
+
+    </body>
+</html>
