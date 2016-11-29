@@ -9,48 +9,48 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
-
+        
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
-
+        
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-
-<!--<link href="${facesContext.externalContext.requestContextPath}/contracts/admin/css/materialize.min.css" rel="stylesheet" type="text/css" />-->
+        
+        
+        <!--<link href="${facesContext.externalContext.requestContextPath}/contracts/admin/css/materialize.min.css" rel="stylesheet" type="text/css" />-->
         <link href="${facesContext.externalContext.requestContextPath}/contracts/admin/css/default.css" rel="stylesheet" type="text/css" />
         <link href="${facesContext.externalContext.requestContextPath}/contracts/admin/css/cssLayout.css" rel="stylesheet" type="text/css" />
         <ui:insert name="header">
-
-
+            
+            
             <title> Facelets Template</title>
-
+            
         </ui:insert>
     </h:head>
     <h:body>
         <div class="container">
-             <p:growl id="messages"/>
+            <p:growl id="messages"/>
             <div id="top" class="nav-wrapper" >
                 <ui:insert name="top"></ui:insert>
                 <h:form>  
                     <p:menubar>
                         <p:menuitem value="Accueil" url="home.xhtml" icon="ui-icon-home" />
-
+                        
                         <p:submenu label="Utilisateur" icon="ui-icon-document">                           
                             <p:menuitem value="Ajouter nouveau" url="utilisateur.xhtml" />
                             <p:separator />
                             <p:menuitem value="Quit" url="#" />
                         </p:submenu>
-
+                        
                         <p:submenu label="Livre" icon="ui-icon-bookmark">
                             <p:menuitem value="Nouveau Livre" url="creationLivre.xhtml" icon="ui-icon-arrowreturnthick-1-w" />
                             <p:menuitem value="Nouvelle Emprunt" url="#" icon="ui-icon-arrowreturnthick-1-w" />
                             <p:menuitem value="Retour" url="#" icon="ui-icon-arrowreturnthick-1-e" />
                         </p:submenu>
-
+                        
                         <p:submenu label="Nouvelles" icon="ui-icon-pin-s">
                             <p:menuitem value="Ajouter" url="formulaireNouvelle.xhtml" icon="ui-icon-plus"/>
-
+                            
                             <p:submenu label="Moderer" icon="ui-icon-search">
                                 <p:submenu label="Commentaire">
                                     <p:menuitem value="Workspace" url="#" />
@@ -58,9 +58,10 @@
                                 <p:menuitem value="File" url="#" />
                             </p:submenu>
                         </p:submenu>
-                         <p:menuitem value="Commentaires" url="administrateurModeration.xhtml" icon="ui-icon-comment" />
+                        <p:menuitem value="Commentaires" url="administrateurModeration.xhtml" icon="ui-icon-comment" />
                         <f:facet name="options">
-                            <p:autoComplete id="champRecherche" maxResults="10" placeholder="Rechercher" value="#{controlRecherche.termeRecherche}" completeMethod="#{controlRecherche.completeText}" />
+                                <p:autoComplete  id="champRecherche" maxResults="10" placeholder="Rechercher" value="#{controlRecherche.termeRecherche}" completeMethod="#{controlRecherche.completeText}" />
+                                <p:commandButton icon="ui-icon-search" id="boutonValiderNouvelle" action="#{controlRecherche.rechercherEtRedirigerVersResultats()}"/>
                             <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
                         </f:facet>
                     </p:menubar>
@@ -71,22 +72,22 @@
                     <ui:insert name="left"></ui:insert>
                     <h:form>
                         <p:menu style="width: 100%;">
-                        <p:submenu label="Ajax">
-                            <p:menuitem value="Save" actionListener="#{menuView.save}" update=":messages" icon="ui-icon-disk" />
-                            <p:menuitem value="Update" actionListener="#{menuView.update}" update=":messages" icon="ui-icon-arrowrefresh-1-w"/>
-                        </p:submenu>
-                        <p:submenu label="Non-Ajax">
-                            <p:menuitem value="Delete" actionListener="#{menuView.delete}" update=":messages" ajax="false" icon="ui-icon-close"/>
-                        </p:submenu>
-                        <p:submenu label="Navigations">
-                            <p:menuitem value="External" url="http://www.primefaces.org" icon="ui-icon-home"/>
-                            <p:menuitem value="Internal" icon="ui-icon-star"/>
-                        </p:submenu>
-                    </p:menu>
-                        </h:form>
+                            <p:submenu label="Ajax">
+                                <p:menuitem value="Save" actionListener="#{menuView.save}" update=":messages" icon="ui-icon-disk" />
+                                <p:menuitem value="Update" actionListener="#{menuView.update}" update=":messages" icon="ui-icon-arrowrefresh-1-w"/>
+                            </p:submenu>
+                            <p:submenu label="Non-Ajax">
+                                <p:menuitem value="Delete" actionListener="#{menuView.delete}" update=":messages" ajax="false" icon="ui-icon-close"/>
+                            </p:submenu>
+                            <p:submenu label="Navigations">
+                                <p:menuitem value="External" url="http://www.primefaces.org" icon="ui-icon-home"/>
+                                <p:menuitem value="Internal" icon="ui-icon-star"/>
+                            </p:submenu>
+                        </p:menu>
+                    </h:form>
                 </div>
                 <div id="content" class="col-lg-10 col-md-9 center_content">
-
+                    
                     <ui:insert name="content">Content</ui:insert>
                 </div>
             </div>
@@ -95,5 +96,5 @@
             </div>
         </div>
     </h:body>
-
+    
 </html>

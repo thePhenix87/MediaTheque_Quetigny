@@ -26,6 +26,7 @@ import model.Categorie;
 import model.Livre;
 import model.Nouvelle;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -81,6 +82,14 @@ public class ControlRecherche implements Serializable {
         listeResultatsRecherche.addAll(setResultatsRecherche);
         return listeResultatsRecherche;
         
+    }
+    
+    public String rechercherEtRedirigerVersResultats(){
+        this.rechercher();
+        RequestContext context = RequestContext.getCurrentInstance(); 
+        //update panel 
+        context.update("resultatsRechercher");  
+        return "recherche.xhtml";
     }
     
     public List completeText(String query){

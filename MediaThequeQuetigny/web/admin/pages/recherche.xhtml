@@ -24,9 +24,8 @@ and open the template in the editor.
                 <h:outputLabel for="champRecherche" value="Texte à rechercher"/>
                 <p:autoComplete id="champRecherche" maxResults="10" value="#{controlRecherche.termeRecherche}" completeMethod="#{controlRecherche.completeText}" />
                 <p:message for="champRecherche"/>
-                
-                <p:commandButton update=":formulaireRechercher" value="Rechercher" id="boutonValiderNouvelle" actionListener="#{controlRecherche.rechercher()}">
-                    <f:param name="page" value="formulaireNouvelle" />
+                <p:commandButton update=":resultatsRechercher" value="Rechercher" id="boutonValiderNouvelle" actionListener="#{controlRecherche.rechercher()}">
+                    <f:param name="page" value="recherche" />
                 </p:commandButton>
             </h:form>
         </p:fieldset>
