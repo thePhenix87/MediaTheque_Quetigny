@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.util.List;
 import model.Livre;
 import javax.ejb.Stateless;
 
@@ -21,6 +22,12 @@ public class LivreDao extends DAO_IMPL<Livre> {
       super(Livre.class);
     }
     
+   public List listerLivresTitreDebutantPar(String termeRecherche){
+       return em.createNativeQuery("SELECT * FROM livre WHERE titre LIKE \""+termeRecherche+"%\"", Livre.class).getResultList();
+   }
     
+   public List listerLivresTitreContenant(String termeRecherche){
+       return em.createNativeQuery("SELECT * FROM livre WHERE titre LIKE \"%"+termeRecherche+"%\"", Livre.class).getResultList();
+   }
     
 }

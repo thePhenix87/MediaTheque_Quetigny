@@ -22,7 +22,7 @@ public class DAO_IMPL<T> implements Serializable {
 
     @PersistenceContext(unitName = "MediaThequeQuetignyPU")
 
-    private EntityManager em;               // EntityManager pour gerer les models
+    protected EntityManager em;               // EntityManager pour gerer les models
     private Class<T> entityClass;           // stocker le type de chaque entity qui va herité du DAO_IMPL
 
     // constructeur sans parametres     

@@ -12,8 +12,10 @@ import dao.UtilisateurDao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -38,7 +40,12 @@ public class ControlRecherche implements Serializable {
     
     private String termeRecherche;
     
-    List<String> listeResultatsRecherche = new ArrayList<String>();
+    //un set pour éviter les doublons
+    Set setResultatsRecherche = new LinkedHashSet();
+    
+    //une liste car <p:autoComplete> veut une liste
+    List listeResultatsRecherche = new ArrayList();
+    
     
     
     public LivreDao getLivreDao() {
@@ -62,13 +69,21 @@ public class ControlRecherche implements Serializable {
         //on cherche dans le titre
     }
     
-    public List recupererListeLivresSelonRecherche(){
+    public List recupererListeLivresSelonRecherche(String recherche){
         
+        setResultatsRecherche.clear();
         listeResultatsRecherche.clear();
-        listeResultatsRecherche.addAll(this.livreDao.getAll());
         
+        setResultatsRecherche.addAll(this.livreDao.listerLivresTitreDebutantPar(recherche));
+        setResultatsRecherche.addAll(this.livreDao.listerLivresTitreContenant(recherche));
+        
+        listeResultatsRecherche.addAll(setResultatsRecherche);
         return listeResultatsRecherche;
         
+    }
+    
+    public List completeText(String query){
+        return recupererListeLivresSelonRecherche(query);
     }
     
 }

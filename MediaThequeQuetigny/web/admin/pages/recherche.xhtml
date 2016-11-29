@@ -22,7 +22,7 @@ and open the template in the editor.
             <h:form id="formulaireRechercher">
                 <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" globalOnly="true"/>
                 <h:outputLabel for="champRecherche" value="Texte à rechercher"/>
-                <p:autoComplete id="champRecherche" maxResults="10" value="#{controlRecherche.termeRecherche}" completeMethod="#{controlRecherche.recupererListeLivresSelonRecherche()}" />
+                <p:autoComplete id="champRecherche" maxResults="10" value="#{controlRecherche.termeRecherche}" completeMethod="#{controlRecherche.completeText}" />
                 <p:message for="champRecherche"/>
                 
                 <p:commandButton update=":formulaireRechercher" value="Rechercher" id="boutonValiderNouvelle" actionListener="#{controlRecherche.rechercher()}">
@@ -33,7 +33,7 @@ and open the template in the editor.
         
         <p:fieldset legend="Résultat de la recherche" style="margin-bottom:20px">
             <h:form id="resultatsRechercher">
-                <p:dataTable var="livre" value="#{controlRecherche.recupererListeLivresSelonRecherche()}" style="margin-bottom:40px">
+                <p:dataTable var="livre" value="#{controlRecherche.rechercher()}" style="margin-bottom:40px">
                     <f:facet name="header">
                         Résultats de la recherche
                     </f:facet>
