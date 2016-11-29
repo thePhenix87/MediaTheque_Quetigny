@@ -1,43 +1,66 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
-    <ui:composition> 
-        <p:fieldset legend="Ecrire ou modifier une nouvelle" style="margin-bottom:20px">
-            <h:form id="formBandeauSuperieur">
-                <h:panelGrid columns="3" cellpadding="5">
-                    <p:selectOneMenu id="choixNouvelle" value="#{controlNouvelle.idNouvelleSelectionnee}" style="width:125px">
-                        <f:selectItem itemLabel="Créer..." itemValue="" />
-                        <f:selectItem itemLabel="Nouvelle 1" itemValue="" />
-                        <f:selectItem itemLabel="Nouvelle 2" itemValue="" />
-                    </p:selectOneMenu>
-                    
-                    <p:commandButton value="Modifier" id="boutonModifierNouvelle"/>
-                    <br/>
-                    <h:outputText value="Texte de la nouvelle"/>
-                    <p:inputTextarea id="texte" rows="6" cols="33" value="#{controlNouvelle.nouvelle.texte}"/>
-                    <p:message for="texte"/>
-                    <h:outputText value="Date"/>
-                    <p:calendar id="date" value="#{controlNouvelle.nouvelle.dateNouvelle}" />
-                    <p:message for="date"/>
-                    <h:outputText value="Catégorie de la nouvelle"/>
-                    <p:selectOneMenu converter="#{converterCategorie}" id="choixCategorieNouvelle" value="#{controlNouvelle.nouvelle.idCategorie}" style="width:125px">
-                        <f:selectItems var="categorie" itemLabel="#{categorie.getIntitule()}" value="#{controlNouvelle.categorieDao.all}" />
-                    </p:selectOneMenu>
-                    <br/>
-                    <h:outputText value="Auteur"/>
-                    <p:selectOneMenu converter="#{converterUtilisateur}" id="choixAuteurNouvelle" value="#{controlNouvelle.nouvelle.idUtilisateur}" style="width:125px">
-                        <f:selectItems var="utilisateur" itemLabel="#{utilisateur.getNom()}" value="#{controlNouvelle.utilisateurDao.all}" />
-                    </p:selectOneMenu>
-                    <br/>
-                    <p:commandButton value="Valider" id="boutonValiderNouvelle" actionListener="#{controlNouvelle.poster()}">
-                        <f:param name="page" value="formulaireNouvelle" />
-                    </p:commandButton>
-                </h:panelGrid>
-            </h:form>
-        </p:fieldset>
-        
-    </ui:composition>
-</html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/adminTemplat.xhtml" >
+    <ui:define name="header">
+        <title>Ajouter ou modifier une nouvelle</title>
+    </ui:define>
+    <ui:define name="content">
+    <p:growl id="growl" showDetail="true" sticky="true" />  
+    <p:fieldset  style="margin-bottom:20px">
+        <h:form id="formulaireModifierNouvelle">
+            <h:panelGrid columns="2" cellpadding="5">
+                <p:selectOneMenu converter="#{converterNouvelle}" id="choixNouvelle" value="#{controlNouvelle.nouvelle}" style="width:125px">
+                    <f:selectItems var="nouvelle"  itemLabel="#{nouvelle.renvoyerDescriptionCourte()}" value="#{controlNouvelle.nouvelleDao.all}" />
+                </p:selectOneMenu>
+                <p:commandButton update=":formulaireEcrireNouvelle,:growl,:sousTitreEcrireModifier" value="Modifier" id="boutonModifierNouvelle" actionListener="#{controlNouvelle.modifier()}">
+                    <f:param name="page" value="formulaireNouvelle" />
+                </p:commandButton>
+                <br/>
+                <p:commandButton update=":formulaireEcrireNouvelle,:growl,:sousTitreEcrireModifier" value="Nouvelle nouvelle" id="boutonNouvelleNouvelle" actionListener="#{controlNouvelle.instancierNouvelleVierge()}">
+                    <f:param name="page" value="formulaireNouvelle" />
+                </p:commandButton>
+            </h:panelGrid>
+        </h:form>
+    </p:fieldset>
+    
+    <p:fieldset legend="#{controlNouvelle.sousTitreEcrireModifier} une nouvelle" id="sousTitreEcrireModifier" style="margin-bottom:20px">
+        <h:form id="formulaireEcrireNouvelle">
+         <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" globalOnly="true"/>
+            <h:panelGrid columns="3" cellpadding="5">
+                <h:outputLabel for="texte" value="Texte de la nouvelle"/>
+                <p:inputTextarea id="texte" rows="6" cols="33" value="#{controlNouvelle.nouvelle.texte}"/>
+                <p:message for="texte"/>
+                <h:outputLabel for="date" value="Date"/>
+                <p:calendar id="date" value="#{controlNouvelle.nouvelle.dateNouvelle}" />
+                <p:message for="date"/>
+                <h:outputLabel for="choixCategorieNouvelle" value="Catégorie de la nouvelle"/>
+                <p:selectOneMenu converter="#{converterCategorie}" id="choixCategorieNouvelle" value="#{controlNouvelle.nouvelle.idCategorie}" style="width:125px">
+                    <f:selectItems var="categorie" itemLabel="#{categorie.getIntitule()}" value="#{controlNouvelle.categorieDao.all}" />
+                </p:selectOneMenu>
+                <br/>
+                <h:outputLabel for="choixAuteurNouvelle" value="Auteur"/>
+                <p:selectOneMenu converter="#{converterUtilisateur}" id="choixAuteurNouvelle" value="#{controlNouvelle.nouvelle.idUtilisateur}" style="width:125px">
+                    <f:selectItems var="utilisateur" itemLabel="#{utilisateur.getLogin()}" value="#{controlNouvelle.utilisateurDao.all}" />
+                </p:selectOneMenu>
+                <br/>
+                <p:commandButton update=":formulaireEcrireNouvelle" value="#{controlNouvelle.sousTitreEcrireModifier} la nouvelle" id="boutonValiderNouvelle" actionListener="#{controlNouvelle.poster()}">
+                    <f:param name="page" value="formulaireNouvelle" />
+                </p:commandButton>
+            </h:panelGrid>
+        </h:form>
+    </p:fieldset>
+    </ui:define>
+    
+    
+</ui:composition>

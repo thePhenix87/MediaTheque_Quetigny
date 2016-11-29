@@ -6,14 +6,17 @@
 package controller;
 
 import dao.CommentaireDao;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import model.Commentaire;
@@ -23,17 +26,20 @@ import model.Commentaire;
  * @author Samuel
  */
 @Named
-@RequestScoped
-public class CommentaireController {
+@ViewScoped
+public class CommentaireController implements Serializable {
     
     @Inject
     private CommentaireDao commentaireDao;
     private List<Commentaire> commentaires;
+    private Commentaire commentaire;
     private SimpleDateFormat sdf;
+    
+    private String textetemp;
     
     public CommentaireController()
     {
-        commentaires=new ArrayList<Commentaire>();
+        commentaires=new ArrayList<>();
         sdf = new SimpleDateFormat("d MMMM yyyy");
     }
     
@@ -59,6 +65,13 @@ public class CommentaireController {
         else
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "OK", "Commentaire n°"+c.getIdCommentaire()+" caché"));
     }
+    
+    public void annoterCommentaire ()
+    {
+        commentaire.setTexte(commentaire.getTexte()+" Annotation le "+sdf.format(new Date())+" : "+textetemp);
+        commentaireDao.update(commentaire);
+        textetemp=null;
+    }
 
     public CommentaireDao getCommentaireDao() {
         return commentaireDao;
@@ -83,4 +96,20 @@ public class CommentaireController {
     public void setSdf(SimpleDateFormat sdf) {
         this.sdf = sdf;
     }
+
+    public Commentaire getCommentaire() {
+        return commentaire;
+    }
+
+    public void setCommentaire(Commentaire commentaire) {
+        this.commentaire = commentaire;
+    }
+
+    public String getTextetemp() {
+        return textetemp;
+    }
+
+    public void setTextetemp(String textetemp) {
+        this.textetemp = textetemp;
+    }    
 }

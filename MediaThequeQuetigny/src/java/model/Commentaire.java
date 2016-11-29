@@ -52,7 +52,7 @@ public class Commentaire implements Serializable, Comparable<Commentaire> {
     private int note;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 25)
+    @Size(min = 1, max = 1000)
     @Column(name = "texte")
     private String texte;
     @Basic(optional = false)

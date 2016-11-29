@@ -11,6 +11,8 @@ import dao.UtilisateurDao;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import model.Categorie;
@@ -31,13 +33,13 @@ public class controlNouvelle implements Serializable {
     @Inject
     private UtilisateurDao utilisateurDao;
     private Nouvelle nouvelle;
-    private int idNouvelleSelectionnee;
+    private String sousTitreEcrireModifier;
     
 
     @PostConstruct
     public void init(){
         nouvelle=new Nouvelle();
-        idNouvelleSelectionnee=0;
+        sousTitreEcrireModifier="Ecrire";
     }
     
     public NouvelleDao getNouvelleDao() {
@@ -57,18 +59,21 @@ public class controlNouvelle implements Serializable {
     }
     
     public void poster(){
+        FacesContext context = FacesContext.getCurrentInstance();
         System.out.println("on poste");
-        nouvelle.setIdNouvelle(1);
-        nouvelleDao.create(nouvelle);
-    }
+        try{
+            nouvelleDao.update(nouvelle);
+            context.addMessage(null, new FacesMessage("Nouvelle ajoutée"));
+        } catch (Exception e){
+            context.addMessage(null, new FacesMessage("Successful",  e.getMessage()));
 
-    public int getIdNouvelleSelectionnee() {
-        return idNouvelleSelectionnee;
+        }
     }
+    
+     public void modifier(){
+         sousTitreEcrireModifier="Modifier";
+     }
 
-    public void setIdNouvelleSelectionnee(int idNouvelleSelectionnee) {
-        this.idNouvelleSelectionnee = idNouvelleSelectionnee;
-    }
 
     public CategorieDao getCategorieDao() {
         return categorieDao;
@@ -84,6 +89,19 @@ public class controlNouvelle implements Serializable {
 
     public void setUtilisateurDao(UtilisateurDao utilisateurDao) {
         this.utilisateurDao = utilisateurDao;
+    }
+
+    public String getSousTitreEcrireModifier() {
+        return sousTitreEcrireModifier;
+    }
+
+    public void setSousTitreEcrireModifier(String sousTitreEcrireModifier) {
+        this.sousTitreEcrireModifier = sousTitreEcrireModifier;
+    }
+    
+    public void instancierNouvelleVierge(){
+        nouvelle=new Nouvelle();
+        sousTitreEcrireModifier="Modifier";
     }
 
 

@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -36,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Nouvelle.findByIdNouvelle", query = "SELECT n FROM Nouvelle n WHERE n.idNouvelle = :idNouvelle")
     , @NamedQuery(name = "Nouvelle.findByTexte", query = "SELECT n FROM Nouvelle n WHERE n.texte = :texte")
     , @NamedQuery(name = "Nouvelle.findByDateNouvelle", query = "SELECT n FROM Nouvelle n WHERE n.dateNouvelle = :dateNouvelle")})
-public class Nouvelle implements Serializable {
+public class Nouvelle implements Serializable, Comparable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -136,7 +137,24 @@ public class Nouvelle implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.afpa.mediatheque.model.Nouvelle[ idNouvelle=" + idNouvelle + " ]";
+        return String.valueOf(idNouvelle);
     }
     
+    //Méthodes ajoutées 
+    public String renvoyerDescriptionCourte(){
+        SimpleDateFormat formatDateSimple = new SimpleDateFormat("dd-MM-yyyy"); 
+        String dateStr = formatDateSimple.format(this.getDateNouvelle());
+        if(this.getTexte().length()>50){
+            return dateStr+" "+this.getTexte().substring(0, 50);
+        }else{
+            return dateStr+" "+this.getTexte();
+        }
+    }
+
+    @Override
+    public int compareTo(Object o) {
+       return this.dateNouvelle.compareTo((Date)o);
+    }
+
+
 }
