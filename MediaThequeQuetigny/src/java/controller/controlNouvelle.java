@@ -9,6 +9,7 @@ import dao.CategorieDao;
 import dao.NouvelleDao;
 import dao.UtilisateurDao;
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -34,12 +35,16 @@ public class controlNouvelle implements Serializable {
     private UtilisateurDao utilisateurDao;
     private Nouvelle nouvelle;
     private String sousTitreEcrireModifier;
+    private boolean boutonSupprimerVraiOuFaux;
+    private List<Nouvelle> listeNouvelles;
     
 
     @PostConstruct
     public void init(){
         nouvelle=new Nouvelle();
-        sousTitreEcrireModifier="Ecrire";
+        sousTitreEcrireModifier="Créer";
+        boutonSupprimerVraiOuFaux=false;
+        listeNouvelles=nouvelleDao.getAll();
     }
     
     public NouvelleDao getNouvelleDao() {
@@ -62,16 +67,35 @@ public class controlNouvelle implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         System.out.println("on poste");
         try{
+            //update ou créé
             nouvelleDao.update(nouvelle);
             context.addMessage(null, new FacesMessage("Nouvelle ajoutée"));
+            listeNouvelles.clear();
+            listeNouvelles.addAll(nouvelleDao.getAll());
+            this.instancierNouvelleVierge();
         } catch (Exception e){
-            context.addMessage(null, new FacesMessage("Successful",  e.getMessage()));
+            context.addMessage(null, new FacesMessage("Erreur :",  e.getMessage()));
 
+        }
+    }
+    
+    public void supprimer(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        System.out.println("on supprime");
+        try{
+            nouvelleDao.delete(nouvelle);
+            context.addMessage(null, new FacesMessage("Nouvelle supprimée"));
+            listeNouvelles.clear();
+            listeNouvelles.addAll(nouvelleDao.getAll());
+            this.instancierNouvelleVierge();
+        } catch (Exception e){
+            context.addMessage(null, new FacesMessage("Erreur :",  e.getMessage()));
         }
     }
     
      public void modifier(){
          sousTitreEcrireModifier="Modifier";
+         boutonSupprimerVraiOuFaux=true;
      }
 
 
@@ -101,7 +125,24 @@ public class controlNouvelle implements Serializable {
     
     public void instancierNouvelleVierge(){
         nouvelle=new Nouvelle();
-        sousTitreEcrireModifier="Modifier";
+        sousTitreEcrireModifier="Créer";
+        boutonSupprimerVraiOuFaux=false;
+    }
+
+    public boolean isBoutonSupprimerVraiOuFaux() {
+        return boutonSupprimerVraiOuFaux;
+    }
+
+    public void setBoutonSupprimerVraiOuFaux(boolean boutonSupprimerVraiOuFaux) {
+        this.boutonSupprimerVraiOuFaux = boutonSupprimerVraiOuFaux;
+    }
+
+    public List<Nouvelle> getListeNouvelles() {
+        return listeNouvelles;
+    }
+
+    public void setListeNouvelles(List<Nouvelle> listeNouvelle) {
+        this.listeNouvelles = listeNouvelle;
     }
 
 

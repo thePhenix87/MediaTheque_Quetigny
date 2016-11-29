@@ -23,11 +23,11 @@ public class LivreDao extends DAO_IMPL<Livre> {
     }
     
    public List listerLivresTitreDebutantPar(String termeRecherche){
-       return em.createNativeQuery("SELECT * FROM livre WHERE titre LIKE \""+termeRecherche+"%\"", Livre.class).getResultList();
+       return this.getEm().createNativeQuery("SELECT * FROM livre WHERE titre LIKE \""+termeRecherche+"%\"", Livre.class).getResultList();
    }
     
    public List listerLivresTitreContenant(String termeRecherche){
-       return em.createNativeQuery("SELECT * FROM livre WHERE titre LIKE \"%"+termeRecherche+"%\"", Livre.class).getResultList();
+       return this.getEm().createNativeQuery("SELECT * FROM livre WHERE titre LIKE \"%"+termeRecherche+"%\"", Livre.class).getResultList();
    }
     
 }
