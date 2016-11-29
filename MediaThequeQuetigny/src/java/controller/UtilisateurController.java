@@ -11,6 +11,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -36,6 +37,12 @@ public class UtilisateurController implements Serializable{
     public UtilisateurController()
     {
         nouvelutilisateur=new Utilisateur();
+    }
+    
+    @PostConstruct
+    public void init()
+    {
+        utilisateur = (Utilisateur) utilisateurDao.selectWhere(new SqlParam("login=>admin")).get(0);
     }
     
     public void creerUtilisateur()

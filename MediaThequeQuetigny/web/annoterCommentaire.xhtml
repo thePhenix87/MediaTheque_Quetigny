@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/userTemplate.xhtml">
+    <ui:define name="content">
+    <h:head>
+        <title>Annoter commentaire</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h:form id="choixCommentaire">
+            <p:dataTable value="#{utilisateurController.utilisateur.commentaireList}" selectionMode="single" selection="#{commentaireController.commentaire}" var="commentaire" rowKey="#{commentaire.idCommentaire}" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,50">
+                <p:ajax event="rowSelect" oncomplete="PF('dialog').show()" update=":choixCommentaire,:form"/>
+                <p:column headerText="Date" sortBy="#{commentaire.dateCommentaire}">
+                    <h:outputText value="#{commentaireController.sdf.format(commentaire.dateCommentaire)}"/>
+                </p:column>
+                <p:column headerText="Id" sortBy="#{commentaire.idCommentaire}">
+                    <h:outputText value="#{commentaire.idCommentaire}"/>
+                </p:column>
+                <p:column headerText="Livre" sortBy="#{commentaire.codeLivre.titre}">
+                    <h:outputText value="#{commentaire.codeLivre}"/>
+                </p:column>
+                <p:column headerText="Note" sortBy="#{commentaire.note}">
+                    <p:rating value="#{commentaire.note}" readonly="true"/>
+                </p:column>
+                <p:column headerText="Texte">
+                    <h:outputText value="#{commentaire.texte}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:dialog header="Annoter commentaire" widgetVar="dialog" modal="true">
+            <h:form id="form">
+                Note : 
+                <p:rating value="#{commentaireController.commentaire.note}" cancel="false"/><br/>
+                Texte original : <br/>
+                <h:outputText value="#{commentaireController.commentaire.texte}"/><br/>
+                Annotation : <br/>
+                <p:inputTextarea rows="5" cols="30" value="#{commentaireController.textetemp}"/><br/>
+                <p:commandButton value="Annoter commentaire" update=":choixCommentaire,:form" actionListener="#{commentaireController.annoterCommentaire()}" oncomplete="PF('dialog').hide()"/>
+            </h:form>
+        </p:dialog>
+    </h:body>
+    </ui:define>
+</ui:composition>

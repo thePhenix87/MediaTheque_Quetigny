@@ -20,19 +20,19 @@ and open the template in the editor.
         <p:messages id="msg" showDetail="true" autoUpdate="true"/>
         <h:form id="form">
             <p:dataTable value="#{commentaireController.commentaires}" var="commentaire" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,50">
-                <p:column headerText="Date" sortBy="#{commentaire.dateCommentaire}">
+            <p:column headerText="Date" sortBy="#{commentaire.dateCommentaire}">
                 <h:outputText value="#{commentaireController.sdf.format(commentaire.dateCommentaire)}"/>
             </p:column>
-                <p:column headerText="Id" sortBy="#{commentaire.idCommentaire}">
+            <p:column headerText="Id" sortBy="#{commentaire.idCommentaire}">
                 <h:outputText value="#{commentaire.idCommentaire}"/>
             </p:column>
-                <p:column headerText="Utilisateur" sortBy="#{commentaire.idUtilisateur.login}">
+            <p:column headerText="Utilisateur" sortBy="#{commentaire.idUtilisateur.login}">
                 <h:outputText value="#{commentaire.idUtilisateur}"/>
             </p:column>
-                <p:column headerText="Livre" sortBy="#{commentaire.codeLivre.titre}">
+            <p:column headerText="Livre" sortBy="#{commentaire.codeLivre.titre}">
                 <h:outputText value="#{commentaire.codeLivre}"/>
             </p:column>
-                <p:column headerText="Note" sortBy="#{commentaire.note}">
+            <p:column headerText="Note" sortBy="#{commentaire.note}">
                 <p:rating value="#{commentaire.note}" readonly="true"/>
             </p:column>
             <p:column headerText="Texte">
