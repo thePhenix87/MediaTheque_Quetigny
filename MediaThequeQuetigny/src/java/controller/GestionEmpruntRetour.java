@@ -43,6 +43,8 @@ public class GestionEmpruntRetour {
     ExemplaireDao exdao;
     @Inject
     UtilisateurDao udao;
+    @Inject
+    MailSend mailSend;
 
     private String livre, user;
     private List<Emprunt> listE;
@@ -52,18 +54,18 @@ public class GestionEmpruntRetour {
     }
 
     public void emprunt() {
+
         Date d = new Date();
         Utilisateur u = udao.find(Integer.parseInt(user));
         Exemplaire ex = exdao.find(Integer.parseInt(livre));
-        System.out.println(ex.getStatut()+"statut exemplaire");
-        System.out.println(u.getIdUtilisateur());
-        List<Emprunt> l = edao.getListSansDateRetour(u);
+        List<Emprunt> l = edao.getListSansDateRetourSemaineGlissante(u);
+
+        // verifies que le exemplaire est  disponible
         if (!ex.getStatut()) {
             this.affichermsg(6);
-        } 
+        } // teste l'egibilite de emprunt d'usager
         else if (l == null || this.verifierposibilite(l)) {
 
-            
             this.stockerEmprunt(u, ex, new Date());
         }
 
@@ -79,7 +81,8 @@ public class GestionEmpruntRetour {
 
         int ctrsg = 0;//compteur de semaine glissante
         System.out.println(l.size() + " sise");
-        //Pour tester tous les compessants du la liste de livres pas rendu 
+
+        // pour compter le livres empruntes pendant cette semaine glissante
         for (int i = 0; i < l.size(); i++) {
             if (l.get(i).getDateEmprunt().after(cm7.getTime())) {
                 ctrsg++;
@@ -87,14 +90,13 @@ public class GestionEmpruntRetour {
             cm21.setTime(l.get(i).getDateEmprunt());
             cm21.add(Calendar.DATE, 21);
 
-            if (cm21.before(c) && l.get(i).getDateRetour() == null) {
+            if (cm21.before(c) && l.get(i).getDateRetour() == null) {// pour tester si le utilisateur a des emprunts avec les tempts de retour depase
 
                 this.affichermsg(1);
                 return false;
             }
         }
-
-        if (ctrsg > 2) {
+        if (ctrsg > 2) {// plus de trois exemplaires en une semaine glissante
 
             this.affichermsg(2);
             return false;
@@ -103,13 +105,15 @@ public class GestionEmpruntRetour {
         return true;
     }
 
+    // Methode pour retourne le Exemplaire
     public void retour() {
         Utilisateur u = udao.find(Integer.parseInt(user));
         Exemplaire ex = exdao.find(Integer.parseInt(livre));
         Emprunt e = this.edao.getEmpruntUserExe(u, ex);
-        if (e == null) {
+
+        if (e == null) { // aucun emprunt trouve
             this.affichermsg(4);
-        } else {
+        } else {// gestion de retour
             e.setDateRetour(new Date());
             this.edao.update(e);
             e.getIdExemplaire().setStatut(true);
@@ -119,13 +123,14 @@ public class GestionEmpruntRetour {
 
     }
 
+    //  recherces la list d'emprunts d'utilisateur
     public void getListEmprunts() {
         Utilisateur u = udao.find(Integer.parseInt(user));
         Date d = new Date();
-
         this.listE = this.edao.getList(u);
     }
 
+    // Gestion du Messages dan la interface
     public void affichermsg(int i) {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
@@ -150,9 +155,22 @@ public class GestionEmpruntRetour {
             case 6:
                 message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Exemplaire pas disponible", "Exemplaire pas disponible");
                 break;
+                case 7:
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Exemplaire pas disponible", "Exemplaire pas disponible");
+                break;
         }
 
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    // envoies un mail a tous les utilisateur avec la date depase
+    public void envoyerMail() {
+        List<Emprunt> l = this.edao.getListDepaseDate();
+        for (int i = 0; i < l.size(); i++) {
+            //  mailSend.send(l.get(i));
+        }
+        this.affichermsg(7);
+
     }
 
     public void stockerEmprunt(Utilisateur u, Exemplaire ex, Date d) {
