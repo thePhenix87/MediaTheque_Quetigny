@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/adminTemplat.xhtml" >
+    <ui:define name="header">
+        <title>Rechercher</title>
+    </ui:define>
+    <ui:define name="content">
+        <p:growl id="growl" showDetail="true" sticky="true" />  
+        
+        <p:fieldset legend="Rechercher" style="margin-bottom:20px">
+            <h:form id="formulaireRechercher">
+                <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" globalOnly="true"/>
+                <h:outputLabel for="champRecherche" value="Texte à rechercher"/>
+                <p:autoComplete id="champRecherche" maxResults="10" value="#{controlRecherche.termeRecherche}" completeMethod="#{controlRecherche.recupererListeLivresSelonRecherche()}" />
+                <p:message for="champRecherche"/>
+                
+                <p:commandButton update=":formulaireRechercher" value="Rechercher" id="boutonValiderNouvelle" actionListener="#{controlRecherche.rechercher()}">
+                    <f:param name="page" value="formulaireNouvelle" />
+                </p:commandButton>
+            </h:form>
+        </p:fieldset>
+        
+        <p:fieldset legend="Résultat de la recherche" style="margin-bottom:20px">
+            <h:form id="resultatsRechercher">
+                <p:dataTable var="livre" value="#{controlRecherche.recupererListeLivresSelonRecherche()}" style="margin-bottom:40px">
+                    <f:facet name="header">
+                        Résultats de la recherche
+                    </f:facet>
+                    <p:column headerText="Image" sortBy="#{livre.getImage()}">
+                        <h:outputText value="#{livre.getImage()}" />
+                    </p:column>
+                    <p:column headerText="Titre" sortBy="#{livre.getTitre()}">
+                        <h:outputText value="#{livre.getTitre()}" />
+                        <br/>
+                        <h:outputText value="Description : #{livre.getDescription()}" />
+                    </p:column>
+                    <p:column headerText="Auteur" sortBy="#{livre.getIdAuteur()}">
+                        <h:outputText value="#{livre.getIdAuteur().getNom()}" />
+                    </p:column>
+                  
+                </p:dataTable>
+            </h:form>
+        </p:fieldset>
+    </ui:define>
+    
+    
+</ui:composition>
