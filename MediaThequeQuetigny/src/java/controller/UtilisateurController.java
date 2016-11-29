@@ -42,7 +42,7 @@ public class UtilisateurController implements Serializable{
     @PostConstruct
     public void init()
     {
-        utilisateur = (Utilisateur) utilisateurDao.selectWhere(new SqlParam("login=>admin")).get(0);
+        //utilisateur = (Utilisateur) utilisateurDao.selectWhere(new SqlParam("login=>admin")).get(0);
     }
     
     public void creerUtilisateur()
