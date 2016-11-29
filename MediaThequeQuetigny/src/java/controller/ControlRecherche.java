@@ -64,9 +64,10 @@ public class ControlRecherche implements Serializable {
         this.termeRecherche = termeRecherche;
     }
     
-    public void rechercher(){
+    public List rechercher(){
         System.out.println("Il faut chercher "+termeRecherche);
         //on cherche dans le titre
+        return recupererListeLivresSelonRecherche(termeRecherche);
     }
     
     public List recupererListeLivresSelonRecherche(String recherche){
