@@ -215,9 +215,10 @@ public class Livre implements Serializable {
 
     @Override
     public String toString() {
-        return titre;
+        return "Livre{" + "codeLivre=" + codeLivre + ", titre=" + titre + ", anneeEdition=" + anneeEdition + ", description=" + description + ", image=" + image + ", statut=" + statut + ", exemplaireList=" + exemplaireList + ", commentaireList=" + commentaireList + ", idAuteur=" + idAuteur + ", idCategorie=" + idCategorie + ", idEditeur=" + idEditeur + '}';
     }
-    
+
+
     public Object getNoteMoyenneLivre(boolean entier)
     {
         double moyenne = 0;

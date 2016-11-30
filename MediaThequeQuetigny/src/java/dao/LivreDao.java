@@ -30,4 +30,7 @@ public class LivreDao extends DAO_IMPL<Livre> {
        return this.getEm().createNativeQuery("SELECT * FROM livre WHERE titre LIKE \"%"+termeRecherche+"%\"", Livre.class).getResultList();
    }
     
+   public void debugLivre(Livre livre){
+       System.out.println(livre);
+   }
 }

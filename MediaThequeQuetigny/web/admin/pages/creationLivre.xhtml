@@ -47,7 +47,7 @@
                                        itemLabel="#{auteur.nom}" />       
                     </p:selectOneMenu>  
                       
-                    <p:outputLabel for="statut" value="Statut" />
+                      <p:outputLabel for="statut" value="#{livreController.statutLivre}" />
                     <p:selectOneMenu id="statut" style="width:125px">
                         <f:selectItem itemLabel="Disponible" itemValue="disponible" />
                         <f:selectItem itemLabel="Indisponible" itemValue="indisponible" />
@@ -56,12 +56,14 @@
                 <br></br>
                 
                 <p:panelGrid columns="2" id="gridlivre3" >  
-                    Exemplaire<p:inputText id="id" value=""/>
-                    Titre<p:inputText id="id" value="#{livreController.livre.titre}"/>
-                    Année d'édition<p:inputText id="anneeEdit" value="#{livreController.livre.anneeEdition}"/>   
+                    Exemplaire<p:inputText id="idExemplair" value="#{livreController.nbrExemplaire}"/>
+                    Titre<p:inputText id="idTitre" value="#{livreController.livre.titre}"/>
+                    Année d'édition<p:inputText id="anneeEdit" value="#{livreController.anneeString}"/>   
                     Description
-                    <p:inputTextarea rows="4" cols="60" id="description" />
-                   
+                    <p:inputTextarea rows="4" cols="60" value="#{livreController.livre.description}" />
+                    <p:outputPanel id="imageLivre" style="width: 180px;height: 150px;">
+                        <p:graphicImage name="img/#{livreController.livre.image}" style="width: inherit ;" />
+                    </p:outputPanel>
                 </p:panelGrid> 
                 <br></br>
                 <p:commandButton value="Valider" id="boutonValiderNouveauLivre" 
@@ -69,12 +71,14 @@
             </h:form> </center>
       
 <h:form>
-    <p:fileUpload fileUploadListener="#{livreController.handleFileUpload(event)}" 
+    <p:fileUpload fileUploadListener="#{livreController.doUploadFile}" 
                   mode="advanced" 
                   dragDropSupport="true"
-                  update="messages" 
+                  update="messages,:formAjouter:imageLivre" 
                   sizeLimit="100000" 
-                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
+                  
+                  />
  
     <p:growl id="messages" showDetail="true" />
 </h:form>

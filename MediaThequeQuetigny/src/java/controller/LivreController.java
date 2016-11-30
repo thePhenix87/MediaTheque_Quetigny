@@ -7,7 +7,12 @@ package controller;
 
 import dao.ExemplaireDao;
 import dao.LivreDao;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,12 +26,11 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-
 import model.Exemplaire;
 import model.Livre;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 import utilitaires.SqlParam;
-
 
 /**
  *
@@ -34,7 +38,7 @@ import utilitaires.SqlParam;
  */
 @Named
 @SessionScoped
-public class LivreController implements Serializable{
+public class LivreController implements Serializable {
 
     @Inject
     LivreDao livreDao;
@@ -47,7 +51,7 @@ public class LivreController implements Serializable{
     private EditeurController editeurCtrl;
     @Inject
     private CategorieController categorieCtrl;
-    
+
     private Exemplaire exemplaire;
     private boolean statutExemplaire;
     private Livre livre;
@@ -56,6 +60,9 @@ public class LivreController implements Serializable{
     private String anneeString;
     private int nbrExemplaire;
     private String statutLivre;
+    UploadedFile file;
+    String destination;
+    String newFileName;
 
     public LivreController() {
         this.params = new HashMap<String, String>();
@@ -65,7 +72,7 @@ public class LivreController implements Serializable{
         statutExemplaire = true;
         anneeString = "";
         context = FacesContext.getCurrentInstance(); //gestion des messages   
-        statutLivre = "";
+        statutLivre = "Disponible";
         nbrExemplaire = 0;
         System.out.println("From Contructor livre");
     }
@@ -73,7 +80,9 @@ public class LivreController implements Serializable{
     @PostConstruct
     public void init() {
         String titre = "Mon titre";
-        listLivres=livreDao.getAll();
+        listLivres = livreDao.getAll();
+        destination = FacesContext.getCurrentInstance().getExternalContext()
+                .getRealPath("/resources/img/") + File.separator;
     }
 
     public List<Livre> getLivres() {
@@ -92,10 +101,33 @@ public class LivreController implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, message);
         System.out.println("TELECHARGEMENT");
     }
+
+    public void doUploadFile(FileUploadEvent event) throws IOException {
+        file = event.getFile();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        newFileName = sdf.format(new Date()) + file.getFileName().substring(
+                event.getFile().getFileName().lastIndexOf('.'));;
+        try {
+            FileInputStream in = (FileInputStream) file.getInputstream();
+            FileOutputStream out = new FileOutputStream(destination + newFileName);
+            byte[] buffer = new byte[(int) file.getSize()];
+            int conteur = 0;
+            while ((conteur = in.read(buffer)) != -1) {
+                out.write(buffer, 0, conteur);
+            }
+            in.close();
+            out.close();
+            livre.setImage(newFileName);
+
+            System.out.println(destination + file.getFileName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     //AJOUTER UNE LIVRE
 
     public void ajouterLivre() {
-
+        System.out.println(livre.getImage());
         livre.setIdAuteur(auteurCtrl.getAuteur());
         livre.setIdEditeur(editeurCtrl.getEditeur());
         livre.setIdCategorie(categorieCtrl.getCategorie());
@@ -103,12 +135,12 @@ public class LivreController implements Serializable{
         livre.setAnneeEdition(new Date());
         livre.setDescription(this.livre.getDescription());
         livre.setStatut(statutLivre);
-        livre.setImage("defaultPic.jpg");
-
+        
+        livreDao.debugLivre(livre);
         livreDao.create(livre);// Insérer un livre  
-        //livreDao.debugLivre(livre);
+        
         /*Insérer le nombre d'exemplaire*/
-        for (int i = 0; i<nbrExemplaire ; i++) {
+        for (int i = 0; i < nbrExemplaire; i++) {
             exemplaire.setCodeLivre(this.livre);
             exemplaire.setStatut(statutExemplaire);
             exemplaireDao.create(exemplaire);
