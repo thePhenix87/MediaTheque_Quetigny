@@ -82,7 +82,15 @@ public class LivreController implements Serializable {
         String titre = "Mon titre";
         listLivres = livreDao.getAll();
         destination = FacesContext.getCurrentInstance().getExternalContext()
-                .getRealPath("/resources/img/") + File.separator;
+                .getRealPath("/") ;
+        String[] parts = destination.split("build");
+        parts[0] = parts[0].substring(0,parts[0].length()-1);
+        System.out.println(parts[0]);
+        System.out.println(parts[1]);
+        destination=parts[0]+parts[1];
+        destination+="resources"+File.separator+"img"+File.separator;
+        System.out.println(destination);
+        
     }
 
     public List<Livre> getLivres() {
