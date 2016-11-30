@@ -11,25 +11,40 @@
 
         <h:form>
             <p:growl id="growl" life="10000" />
-            <p:outputLabel value="Id Exemplaire"/> 
-            <p:inputText id="livre" label="Id Exemplaire" value="#{gestionEmpruntRetour.livre}" />
+            
+            <p:outputLabel value="Id Exemplaire/ Id Livre"/> 
+            <p:inputText id="livre" label="Id Exemplaire" value="#{gestionEmpruntRetour.livre}" validatorMessage="Id Exemplaire / Id Livre: Saissie incorrect" >
+            </p:inputText> 
+            <p:message for="livre"  display="icon" />
             <br/>
+            
             <p:outputLabel value="Id User"/> 
-            <p:inputText id="user" label="Id User" value="#{gestionEmpruntRetour.user}" />
+            <p:inputText id="user" label="Id User" value="#{gestionEmpruntRetour.user}" validatorMessage="Id User: Saissie incorrect" >
+          
+            </p:inputText>
+            <p:message id="usermsg" for="user" display="icon"  />
             <br/>
+            
             <p:commandButton value="Retour" id="retour" update="growl" actionListener="#{gestionEmpruntRetour.retour()}" styleClass="ui-priority-primary" />
             <p:commandButton value="Emprunt" id="emprunt" update="growl" actionListener="#{gestionEmpruntRetour.emprunt()}" styleClass="ui-priority-primary" />
-            <p:commandButton value="Get List d'Emprunts" id="getlist" update="listE" actionListener="#{gestionEmpruntRetour.getListEmprunts}" styleClass="ui-priority-primary" />
-            <p:commandButton value="Envoyer Mail" id="mail"  actionListener="#{gestionEmpruntRetour.envoyerMail()}" styleClass="ui-priority-primary" />
+            <p:commandButton value="Get List par Utilisateur" id="getlistUser" update="liste, growl" actionListener="#{gestionEmpruntRetour.searchListEmpruntsParUser()}" styleClass="ui-priority-primary" />
+            <p:commandButton value="Get List par Exemplaire" id="getlistEx" update="liste, growl" actionListener="#{gestionEmpruntRetour.searchListEmpruntsParExemplaire()}" styleClass="ui-priority-primary" />
+            <p:commandButton value="Get List par Livre" id="getlistlv" update="liste, growl" actionListener="#{gestionEmpruntRetour.searchListEmpruntsParLivre()}" styleClass="ui-priority-primary" />
+            
+            <p:commandButton value="Envoyer Mail" id="sendmail"  actionListener="#{gestionEmpruntRetour.envoyerMail()}" styleClass="ui-priority-primary" />
 
 
-            <p:dataTable style="text-align: center" liveResize="true" id="listE" value="#{gestionEmpruntRetour.listE}" var="emprunt">
+            <p:dataTable style="text-align: center" liveResize="true" id="liste" value="#{gestionEmpruntRetour.listE}" var="emprunt">
                 <p:column headerText="Id Emprunt">
                     <h:outputText value="#{emprunt.idEmprunt}" />
                 </p:column>
 
-                <p:column headerText="Id Exemplaire">
+                <p:column headerText="Id Exemplaire" rendered="#{gestionEmpruntRetour.ex}">
                     <h:outputText value="#{emprunt.idExemplaire.idExemplaire}" />
+                </p:column>
+
+                <p:column headerText="Id Utilisateur" rendered="#{gestionEmpruntRetour.us}">
+                    <h:outputText value="#{emprunt.idUtilisateur}" />
                 </p:column>
 
                 <p:column headerText="Titre">
