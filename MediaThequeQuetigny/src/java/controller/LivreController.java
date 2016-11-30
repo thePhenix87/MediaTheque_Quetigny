@@ -3,16 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package controller;
 
 import dao.ExemplaireDao;
 import dao.LivreDao;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -31,8 +33,8 @@ import utilitaires.SqlParam;
  * @author Tarik
  */
 @Named
-@RequestScoped
-public class LivreController {
+@SessionScoped
+public class LivreController implements Serializable{
 
     @Inject
     LivreDao livreDao;
@@ -70,11 +72,7 @@ public class LivreController {
 
     @PostConstruct
     public void init() {
-        String titre = "Mon titre";
-        listLivres = livreDao.selectWhere(new SqlParam(
-                "titre =>harry"
-        ));
-        
+        listLivres=livreDao.getAll();
     }
 
     public List<Livre> getLivres() {
