@@ -27,37 +27,41 @@ import utilitaires.SqlParam;
  */
 @Named
 @SessionScoped
-public class UtilisateurController implements Serializable{
-    
+public class UtilisateurController implements Serializable {
+
     @Inject
     private UtilisateurDao utilisateurDao;
-    private Utilisateur utilisateur;    
+    /// ajoute par Gabriel
+    @Inject/// ajoute par Gabriel
+    MailSend mailSend;/// ajoute par Gabriel
+    private Utilisateur utilisateur;
     private Utilisateur nouvelutilisateur;
-    
-    public UtilisateurController()
-    {
-        nouvelutilisateur=new Utilisateur();
+
+    public UtilisateurController() {
+        nouvelutilisateur = new Utilisateur();
     }
-    
+
     @PostConstruct
-    public void init()
-    {
+    public void init() {
         //utilisateur = (Utilisateur) utilisateurDao.selectWhere(new SqlParam("login=>admin")).get(0);
     }
-    
-    public void creerUtilisateur()
-    {
-        if (!(utilisateurDao.selectWhere(new SqlParam("login=>"+nouvelutilisateur.getLogin())).isEmpty()))
+
+    public void creerUtilisateur() {
+        if (!(utilisateurDao.selectWhere(new SqlParam("login=>" + nouvelutilisateur.getLogin())).isEmpty())) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur", "Ce pseudo existe déja"));
-        else
-        {
+        } else {
+            String pass = nouvelutilisateur.getMdp();
             try {
+
                 nouvelutilisateur.setMdp(SHA(nouvelutilisateur.getMdp()));
             } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
                 Logger.getLogger(UtilisateurController.class.getName()).log(Level.SEVERE, null, ex);
             }
             utilisateurDao.create(nouvelutilisateur);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "OK", "Utilisateur \""+nouvelutilisateur.getLogin()+"\" crée"));
+           
+            nouvelutilisateur.setMdp(pass);
+            this.mailSend.sendCredentials(nouvelutilisateur);/// ajoute par Gabriel --- envoi automatic de mail
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "OK", "Utilisateur \"" + nouvelutilisateur.getLogin() + "\" crée"));
         }
     }
 
@@ -84,5 +88,5 @@ public class UtilisateurController implements Serializable{
     public void setNouvelutilisateur(Utilisateur nouvelutilisateur) {
         this.nouvelutilisateur = nouvelutilisateur;
     }
-    
+
 }
