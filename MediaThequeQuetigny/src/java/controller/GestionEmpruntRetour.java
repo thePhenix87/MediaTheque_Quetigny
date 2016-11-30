@@ -46,25 +46,32 @@ public class GestionEmpruntRetour {
     @Inject
     MailSend mailSend;
 
-    private String livre, user;
+    private int livre, user;
     private List<Emprunt> listE;
+    private boolean us = true, ex = true;
 
     public GestionEmpruntRetour() {
         List<Emprunt> listE = new ArrayList<Emprunt>();
+        Utilisateur user1= new Utilisateur();
     }
 
     public void emprunt() {
 
         Date d = new Date();
-        Utilisateur u = udao.find(Integer.parseInt(user));
-        Exemplaire ex = exdao.find(Integer.parseInt(livre));
+        Utilisateur u = new Utilisateur();
+        u.setIdUtilisateur(user);
+        u = udao.find(u.getIdUtilisateur());
+        Exemplaire ex = exdao.find(livre);
         List<Emprunt> l = edao.getListSansDateRetourSemaineGlissante(u);
 
         // verifies que le exemplaire est  disponible
-        if (!ex.getStatut()) {
+        if (u == null) {
+            this.affichermsg(8);
+        } else if (ex == null) {
+            this.affichermsg(9);
+        } else if (!ex.getStatut()) {
             this.affichermsg(6);
-        } // teste l'egibilite de emprunt d'usager
-        else if (l == null || this.verifierposibilite(l)) {
+        } else if (l == null || this.verifierposibilite(l)) {// teste l'egibilite de emprunt d'usager
 
             this.stockerEmprunt(u, ex, new Date());
         }
@@ -107,9 +114,9 @@ public class GestionEmpruntRetour {
 
     // Methode pour retourne le Exemplaire
     public void retour() {
-        Utilisateur u = udao.find(Integer.parseInt(user));
-        Exemplaire ex = exdao.find(Integer.parseInt(livre));
-        Emprunt e = this.edao.getEmpruntUserExe(u, ex);
+
+        Exemplaire ex = exdao.find(livre);
+        Emprunt e = this.edao.geEmprunParEx(ex);
 
         if (e == null) { // aucun emprunt trouve
             this.affichermsg(4);
@@ -124,10 +131,26 @@ public class GestionEmpruntRetour {
     }
 
     //  recherces la list d'emprunts d'utilisateur
-    public void getListEmprunts() {
-        Utilisateur u = udao.find(Integer.parseInt(user));
-        Date d = new Date();
+    public void searchListEmpruntsParUser() {
+        Utilisateur u =  udao.find(user);
+        ex = true;
+        us = false;
         this.listE = this.edao.getList(u);
+    }
+
+    // recherches la list par Exemplaire
+    public void searchListEmpruntsParExemplaire() {
+        Exemplaire e = exdao.find(livre);
+        ex = false;
+        us = true;
+        this.listE = this.edao.getListparEx(e);
+    }
+
+    public void searchListEmpruntsParLivre() {
+        Livre l = ldao.find(livre);
+        ex = true;
+        us = true;
+        this.listE = this.edao.getListparLivre(l);
     }
 
     // Gestion du Messages dan la interface
@@ -155,9 +178,20 @@ public class GestionEmpruntRetour {
             case 6:
                 message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Exemplaire pas disponible", "Exemplaire pas disponible");
                 break;
-                case 7:
+            case 7:
                 message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Exemplaire pas disponible", "Exemplaire pas disponible");
                 break;
+            case 8:
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "Utilisateur pas trouve");
+                break;
+            case 9:
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "Exemplaire pas trouve");
+                break;
+            case 10:
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "Error de Saisie");
+
+                break;
+
         }
 
         FacesContext.getCurrentInstance().addMessage(null, message);
@@ -165,9 +199,13 @@ public class GestionEmpruntRetour {
 
     // envoies un mail a tous les utilisateur avec la date depase
     public void envoyerMail() {
+      
+        
         List<Emprunt> l = this.edao.getListDepaseDate();
+        
         for (int i = 0; i < l.size(); i++) {
-            //  mailSend.send(l.get(i));
+              
+            mailSend.sendMailNOtification(l.get(i));
         }
         this.affichermsg(7);
 
@@ -226,20 +264,36 @@ public class GestionEmpruntRetour {
         this.listE = listE;
     }
 
-    public String getLivre() {
+    public int getLivre() {
         return livre;
     }
 
-    public void setLivre(String livre) {
+    public void setLivre(int livre) {
         this.livre = livre;
     }
 
-    public String getUser() {
+    public int getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(int user) {
         this.user = user;
+    }
+
+    public boolean isUs() {
+        return us;
+    }
+
+    public void setUs(boolean us) {
+        this.us = us;
+    }
+
+    public boolean isEx() {
+        return ex;
+    }
+
+    public void setEx(boolean ex) {
+        this.ex = ex;
     }
 
 }
