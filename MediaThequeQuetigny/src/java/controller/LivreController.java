@@ -146,7 +146,8 @@ public class LivreController implements Serializable {
         this.livre = livre;
     }
 
-    public List<Livre> getListLivres() {
+    public List<Livre> getLivres(){     
+     
         return listLivres;
     }
 
