@@ -20,6 +20,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import model.Commentaire;
+import model.Livre;
 
 /**
  *
@@ -72,7 +73,7 @@ public class CommentaireController implements Serializable {
         commentaireDao.update(commentaire);
         textetemp=null;
     }
-
+    
     public CommentaireDao getCommentaireDao() {
         return commentaireDao;
     }

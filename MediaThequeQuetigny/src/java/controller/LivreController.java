@@ -7,12 +7,14 @@ package controller;
 import dao.CategorieDao;
 import model.Livre;
 import dao.LivreDao;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
 
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -29,8 +31,8 @@ import utilitaires.SqlParam;
  * @author Tarik
  */
 @Named
-@RequestScoped
-public class LivreController {
+@SessionScoped
+public class LivreController implements Serializable {
     
     @Inject
     LivreDao livreDao;
@@ -56,15 +58,11 @@ public class LivreController {
     @PostConstruct
     public void  init(){
         String titre = "Mon titre";
-      listLivres =  livreDao.selectWhere(new SqlParam( 
-                "titre =>harry"
-          
-        ));   
-    }
-  
-    public List<Livre> getLivres(){     
-     
-        return listLivres;
+//      listLivres =  livreDao.selectWhere(new SqlParam( 
+//                "titre =>harry"
+//          
+//        ));  
+        listLivres=livreDao.getAll();
     }
     
     public Livre getLivreByTitle(String title){
@@ -107,4 +105,60 @@ public class LivreController {
     public void setLivreDao(LivreDao livreDao) {
         this.livreDao = livreDao;
     } 
+
+    public HashMap getParams() {
+        return params;
+    }
+
+    public void setParams(HashMap params) {
+        this.params = params;
+    }
+
+    public AuteurController getAuteurCtrl() {
+        return auteurCtrl;
+    }
+
+    public void setAuteurCtrl(AuteurController auteurCtrl) {
+        this.auteurCtrl = auteurCtrl;
+    }
+
+    public EditeurController getEditeurCtrl() {
+        return editeurCtrl;
+    }
+
+    public void setEditeurCtrl(EditeurController editeurCtrl) {
+        this.editeurCtrl = editeurCtrl;
+    }
+
+    public CategorieController getCategorieCtrl() {
+        return categorieCtrl;
+    }
+
+    public void setCategorieCtrl(CategorieController categorieCtrl) {
+        this.categorieCtrl = categorieCtrl;
+    }
+
+    public Livre getLivre() {
+        return livre;
+    }
+
+    public void setLivre(Livre livre) {
+        this.livre = livre;
+    }
+
+    public List<Livre> getListLivres() {
+        return listLivres;
+    }
+
+    public void setListLivres(List<Livre> listLivres) {
+        this.listLivres = listLivres;
+    }
+
+    public FacesContext getContext() {
+        return context;
+    }
+
+    public void setContext(FacesContext context) {
+        this.context = context;
+    }
 }

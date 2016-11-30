@@ -20,10 +20,10 @@ and open the template in the editor.
         <p:messages id="msg" showDetail="true" autoUpdate="true"/>
         <h:form id="form">
             <p:dataTable value="#{commentaireController.commentaires}" var="commentaire" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,50">
-            <p:column headerText="Date" sortBy="#{commentaire.dateCommentaire}">
+            <p:column headerText="Date" sortBy="#{commentaire.dateCommentaire}" style="width:150px">
                 <h:outputText value="#{commentaireController.sdf.format(commentaire.dateCommentaire)}"/>
             </p:column>
-            <p:column headerText="Id" sortBy="#{commentaire.idCommentaire}">
+            <p:column headerText="Id" sortBy="#{commentaire.idCommentaire}" style="width:40px">
                 <h:outputText value="#{commentaire.idCommentaire}"/>
             </p:column>
             <p:column headerText="Utilisateur" sortBy="#{commentaire.idUtilisateur.login}">
@@ -32,11 +32,11 @@ and open the template in the editor.
             <p:column headerText="Livre" sortBy="#{commentaire.codeLivre.titre}">
                 <h:outputText value="#{commentaire.codeLivre}"/>
             </p:column>
-            <p:column headerText="Note" sortBy="#{commentaire.note}">
+                <p:column headerText="Note" sortBy="#{commentaire.note}"  style="width:105px">
                 <p:rating value="#{commentaire.note}" readonly="true"/>
             </p:column>
             <p:column headerText="Texte">
-                <h:outputText value="#{commentaire.texte}"/>
+                <h:outputText value="#{commentaire.texte}" />
             </p:column>
             <p:column headerText="Commentaire visible">
                 <p:selectBooleanCheckbox value="#{commentaire.affiche}">
@@ -44,7 +44,7 @@ and open the template in the editor.
                     <p:ajax listener="#{commentaireController.validerCommentaire(commentaire)}" update=":msg"/>
                 </p:selectBooleanCheckbox>
             </p:column>
-            <p:column headerText="Supprimer le commentaire">
+            <p:column>
                 <p:commandButton value="Supprimer" actionListener="#{commentaireController.supprimerCommentaire(commentaire)}" update=":form">
                     <f:param name="page" value="administrateurModeration"/>
                 </p:commandButton>

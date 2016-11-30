@@ -218,4 +218,15 @@ public class Livre implements Serializable {
         return titre;
     }
     
+    public Object getNoteMoyenneLivre(boolean entier)
+    {
+        double moyenne = 0;
+        for (Commentaire c : commentaireList)
+            moyenne+=c.getNote();
+        moyenne= moyenne/=commentaireList.size();
+        if (entier)
+            return (int) moyenne;
+        else
+            return moyenne;
+    }
 }
