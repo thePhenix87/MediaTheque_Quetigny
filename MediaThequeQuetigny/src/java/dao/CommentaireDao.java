@@ -24,7 +24,7 @@ public class CommentaireDao extends DAO_IMPL<Commentaire>{
     
     public double getNoteMoyenneLivre(Livre l)
     {
-        System.out.println(em.createNativeQuery("SELECT AVG(note) FROM commentaire WHERE codeLivre="+l.getCodeLivre()).getSingleResult());
-        return ((BigDecimal) em.createNativeQuery("SELECT AVG(note) FROM commentaire WHERE codeLivre="+l.getCodeLivre()).getSingleResult()).doubleValue();
+        System.out.println(getEm().createNativeQuery("SELECT AVG(note) FROM commentaire WHERE codeLivre="+l.getCodeLivre()).getSingleResult());
+        return ((BigDecimal) getEm().createNativeQuery("SELECT AVG(note) FROM commentaire WHERE codeLivre="+l.getCodeLivre()).getSingleResult()).doubleValue();
     }
 }
