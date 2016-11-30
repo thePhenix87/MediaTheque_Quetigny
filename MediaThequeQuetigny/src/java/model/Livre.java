@@ -164,6 +164,7 @@ public class Livre implements Serializable {
     public List<Commentaire> getCommentaireList() {
         return commentaireList;
     }
+    
 
     public void setCommentaireList(List<Commentaire> commentaireList) {
         this.commentaireList = commentaireList;

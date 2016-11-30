@@ -27,3 +27,24 @@ a:link:hover, a:visited:hover  {
   font-weight : bold;
   text-decoration : underline;
 }
+element {
+}
+.ui-panelgrid .ui-panelgrid-cell {
+    border-width: 1px;
+    border-style: none;
+    border-color: inherit;
+    padding: 4px 10px;
+    
+}
+.label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #171414;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}

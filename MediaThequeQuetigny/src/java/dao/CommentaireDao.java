@@ -6,6 +6,7 @@
 package dao;
 
 import java.math.BigDecimal;
+import java.util.List;
 import javax.ejb.Stateless;
 import model.Commentaire;
 import model.Livre;
@@ -27,4 +28,17 @@ public class CommentaireDao extends DAO_IMPL<Commentaire>{
         System.out.println(getEm().createNativeQuery("SELECT AVG(note) FROM commentaire WHERE codeLivre="+l.getCodeLivre()).getSingleResult());
         return ((BigDecimal) getEm().createNativeQuery("SELECT AVG(note) FROM commentaire WHERE codeLivre="+l.getCodeLivre()).getSingleResult()).doubleValue();
     }
+        public int stars(Integer codelivre) {
+        List star = this.getEm().createNativeQuery("select (AVG(note)) from commentaire as c where c.codeLivre=" + codelivre).getResultList();
+        if (star.size()>0&&star.get(0)!=null) {
+            //System.out.println(Integer.valueOf(star.get(0).toString()));
+            return Math.round(Float.valueOf(star.get(0).toString()));
+        }
+        return 0;
+    }
+        
+     public List<Commentaire> comvalides(int codelivre){
+      List<Commentaire>comvalides= this.getEm().createNativeQuery("Select * from commentaire as c where c.affiche=1 And c.codeLivre="+codelivre,Commentaire.class).getResultList();
+         return  comvalides;
+     }   
 }

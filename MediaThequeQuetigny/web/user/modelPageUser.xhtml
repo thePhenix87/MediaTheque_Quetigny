@@ -1,15 +1,124 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
 
     <body>
 
         <ui:composition template="/userTemplate.xhtml">
 
             <ui:define name="content">
-               ma page Model user
-               Pour y acceder => /faces/user/modelPageUser.xhtml
+                ma page Model user
+                Pour y acceder => /faces/user/modelPageUser.xhtml
+
+                <p:carousel value="#{controlHome.livres}"  var="livre" itemStyle="text-align:center" >
+                    <h:form id="form">
+                        <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value"  >
+
+                            <f:facet name="header">
+                                <p:graphicImage name="/img/#{livre.image}.jpeg" /> 
+
+
+                            </f:facet>
+                            <h:outputText value="Code du livre" />
+                            <h:outputText value="#{livre.codeLivre}" />
+
+                            <h:outputText value="Auteur:" />
+                            <h:outputText value="#{livre.idAuteur.nom}" />
+
+                            <h:outputText value="Année d'édition" />
+                            <h:outputText value="#{livre.anneeEdition}" />
+
+                            <h:outputText value="Catégorie" />
+                            <h:outputText value="#{livre.idCategorie.intitule}"/>
+
+                            <h:outputText value="Description" />
+                            <h:outputText value="#{livre.description}" />
+                        </p:panelGrid>
+
+                        <p:commandButton update=":carDetail" oncomplete="PF('carDialog').show()" icon="ui-icon-search">
+                            <f:setPropertyActionListener value="#{livre}" target="#{controlHome.selectedlivre}" />
+                        </p:commandButton>
+                    </h:form>
+                </p:carousel>
+               
+                
+                <p:dialog header="Détail" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="carDetail" style="text-align:center;">
+
+                        <p:tabView>
+                            <p:tab title="Détail">
+                                <h:panelGrid columns="2" cellpadding="10">
+                                    <p:graphicImage name="/img/#{controlHome.selectedlivre.image}.jpeg" /> 
+                                    <h:outputText
+                                        value= "#{controlHome.selectedlivre.description}" />
+                                    <p:rating value="#{controlHome.stars}" readonly="true" />
+
+                                    <h:form> 
+                                        <p:dataScroller value="#{controlHome.comvalides}" var="commentaire" chunkSize="10">
+                                            <f:facet name="header">
+                                                Scroll down pour plus de commentaire
+                                            </f:facet>
+                                            <h:outputText
+                                                value= "#{commentaire.dateCommentaire}**#{commentaire.idUtilisateur.login}:#{commentaire.texte}" />
+                                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+
+
+                                                <p:outputPanel>
+
+                                                </p:outputPanel>
+                                            </h:panelGrid>
+                                        </p:dataScroller>
+                                    </h:form>
+
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab title="Extrait">
+                                <h:panelGrid columns="2" cellpadding="10">
+
+                                </h:panelGrid> <h3>PDF</h3><object type="application/pdf" data="/img/bibliotheque.pdf" >
+                                    Your browser can't display pdf, <a href="/img/bibliotheque.pdf">click</a> to download pdf instead.
+                                </object>
+
+                            </p:tab>
+                            <p:tab title="Evaluation">
+
+                                <h:form id="evaluation">               
+                                    <p:inputTextarea id="commentaire" counter="display" 
+                                                     value="#{controlHome.cm.texte}" 
+                                                     maxlength="25" 
+                                                     counterTemplate="{0} characters remaining." 
+                                                     autoResize="false" />
+
+                                    <h:outputText id="display" style=" font-size: 15px" />
+
+                                    <p:rating value="#{controlHome.cm.note}">
+                                        <p:ajax event="rate" listener="#{controlHome.onrate}"  />
+                                        <p:ajax event="cancel" listener="#{controlHome.oncancel}" />
+                                    </p:rating>
+                                    <p:commandButton value="Submit"  actionListener="#{controlHome.ajoutercommentaire}" 
+                                                     update="evaluation" ajax="true"/>   
+
+
+
+                                </h:form>
+
+                            </p:tab>
+                        </p:tabView>
+
+
+                    </p:outputPanel>
+
+                </p:dialog>
+
+               
+
+
             </ui:define>
 
         </ui:composition>

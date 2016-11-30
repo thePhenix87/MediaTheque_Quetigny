@@ -3,10 +3,28 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Tarik/Documents/GitHub/AFPA-MEDIATHEQUE-QUETIGNY/MediaTheque_Quetigny/MediaThequeQuetigny/src/java/controller/FileUploadController.java</file>
-            <file>file:/C:/Users/Tarik/Documents/GitHub/AFPA-MEDIATHEQUE-QUETIGNY/MediaTheque_Quetigny/MediaThequeQuetigny/web/admin/pages/creationLivre.xhtml</file>
-            <file>file:/C:/Users/Tarik/Documents/GitHub/AFPA-MEDIATHEQUE-QUETIGNY/MediaTheque_Quetigny/MediaThequeQuetigny/src/java/controller/LivreController.java</file>
-            <file>file:/C:/Users/Tarik/Documents/GitHub/AFPA-MEDIATHEQUE-QUETIGNY/MediaTheque_Quetigny/MediaThequeQuetigny/web/annoterCommentaire.xhtml</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/src/java/controller/converterEditeur.java</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/src/java/controller/ControlHome.java</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/web/admin/pages/administrateurIndex.xhtml</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/web/index.xhtml</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/web/admin/pages/administrateurModeration.xhtml</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/web/contracts/user/css/default.css</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/web/panneauUtilisateur.xhtml</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/src/java/controller/controlNouvelle.java</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/web/homePage.xhtml</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/src/java/dao/UtilisateurDao.java</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/src/java/model/Commentaire.java</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/src/java/model/Livre.java</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/setup/glassfish-resources.xml</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/web/admin/pages/administrateurRetour.xhtml</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/web/WEB-INF/web.xml</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/src/java/dao/DAO_IMPL.java</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/src/java/controller/controllerAdministrateur.java</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/src/java/controller/EditeurController.java</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/web/contracts/user/css/cssLayout.css</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/web/admin/pages/administrateurTableauBord.xhtml</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/web/user/modelPageUser.xhtml</file>
+            <file>file:/home/yasser/NetBeansProjects/MediaTheque_Quetigny/MediaThequeQuetigny/web/welcomePrimefaces.xhtml</file>
         </group>
     </open-files>
 </project-private>
