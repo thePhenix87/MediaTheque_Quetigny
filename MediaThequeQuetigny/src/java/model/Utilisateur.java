@@ -79,6 +79,7 @@ public class Utilisateur implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
+    @Pattern(regexp="\\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\\b")
     @Column(name = "mail")
     private String mail;
     @Basic(optional = false)

@@ -17,9 +17,10 @@
             <p:outputLabel value="Id User"/> 
             <p:inputText id="user" label="Id User" value="#{gestionEmpruntRetour.user}" />
             <br/>
-            <p:commandButton value="Retour" id="retour" update="growl" actionListener="#{gestionEmpruntRetour.Retour}" styleClass="ui-priority-primary" />
-            <p:commandButton value="Empreunt" id="emprunt" update="growl" actionListener="#{gestionEmpruntRetour.Emprunt}" styleClass="ui-priority-primary" />
+            <p:commandButton value="Retour" id="retour" update="growl" actionListener="#{gestionEmpruntRetour.retour()}" styleClass="ui-priority-primary" />
+            <p:commandButton value="Emprunt" id="emprunt" update="growl" actionListener="#{gestionEmpruntRetour.emprunt()}" styleClass="ui-priority-primary" />
             <p:commandButton value="Get List d'Emprunts" id="getlist" update="listE" actionListener="#{gestionEmpruntRetour.getListEmprunts}" styleClass="ui-priority-primary" />
+            <p:commandButton value="Envoyer Mail" id="mail"  actionListener="#{gestionEmpruntRetour.envoyerMail()}" styleClass="ui-priority-primary" />
 
 
             <p:dataTable style="text-align: center" liveResize="true" id="listE" value="#{gestionEmpruntRetour.listE}" var="emprunt">

@@ -27,7 +27,7 @@ public class EmpruntDao extends DAO_IMPL<Emprunt> {
         super(Emprunt.class);
     }
 
-    public List<Emprunt> getListSansDateRetour(Utilisateur u) {
+    public List<Emprunt> getListSansDateRetourSemaineGlissante(Utilisateur u) {
         System.out.println(u.getIdUtilisateur());
         Calendar cm7 = Calendar.getInstance();
         cm7.add(Calendar.DATE, -7);
@@ -66,5 +66,19 @@ public class EmpruntDao extends DAO_IMPL<Emprunt> {
             return null;
         }
 
+    }
+    
+    public List<Emprunt> getListDepaseDate() {
+        Calendar cm21 = Calendar.getInstance();
+        cm21.add(Calendar.DATE, -21);
+        Query q = this.getEm().createQuery("SELECT e FROM Emprunt e where e.dateRetour =null and e.dateEmprunt>:date order by e.dateEmprunt desc", Emprunt.class);
+        q.setParameter("date", cm21.getTime());
+        List<Emprunt> l = q.getResultList();
+
+        if (l.size() < 1) {
+            return null;
+        }
+      
+        return l;
     }
 }

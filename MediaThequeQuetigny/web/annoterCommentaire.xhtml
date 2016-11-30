@@ -20,16 +20,16 @@ and open the template in the editor.
         <h:form id="choixCommentaire">
             <p:dataTable value="#{utilisateurController.utilisateur.commentaireList}" selectionMode="single" selection="#{commentaireController.commentaire}" var="commentaire" rowKey="#{commentaire.idCommentaire}" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,50">
                 <p:ajax event="rowSelect" oncomplete="PF('dialog').show()" update=":choixCommentaire,:form"/>
-                <p:column headerText="Date" sortBy="#{commentaire.dateCommentaire}">
+                <p:column headerText="Date" sortBy="#{commentaire.dateCommentaire}" style="width:150px">
                     <h:outputText value="#{commentaireController.sdf.format(commentaire.dateCommentaire)}"/>
                 </p:column>
-                <p:column headerText="Id" sortBy="#{commentaire.idCommentaire}">
+                <p:column headerText="Id" sortBy="#{commentaire.idCommentaire}" style="width:40px">
                     <h:outputText value="#{commentaire.idCommentaire}"/>
                 </p:column>
-                <p:column headerText="Livre" sortBy="#{commentaire.codeLivre.titre}">
+                <p:column headerText="Livre" sortBy="#{commentaire.codeLivre.titre}" style="width:300px">
                     <h:outputText value="#{commentaire.codeLivre}"/>
                 </p:column>
-                <p:column headerText="Note" sortBy="#{commentaire.note}">
+                <p:column headerText="Note" sortBy="#{commentaire.note}"  style="width:105px">
                     <p:rating value="#{commentaire.note}" readonly="true"/>
                 </p:column>
                 <p:column headerText="Texte">
