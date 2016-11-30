@@ -19,6 +19,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import model.Emprunt;
+import model.Utilisateur;
 
 /**
  *
@@ -28,29 +29,29 @@ import model.Emprunt;
 @SessionScoped
 public class MailSend  implements Serializable{
 
-    @Resource(name = "mail/smtp")
+    @Resource(name = "jndi/mediatheque")
     private Session session;
 
     public MailSend() {
 
     }
 
-    public void send() {
+    public void sendCredentials(Utilisateur u) {
         MimeMessage message = new MimeMessage(session);
 
         try {
 
             message.setFrom(new InternetAddress(session.getProperty("mail.from")));
 
-            InternetAddress[] address = {new InternetAddress("bob@bob.com")};
+            InternetAddress[] address = {new InternetAddress(u.getMail())};
 
             message.setRecipients(Message.RecipientType.TO, address);
 
-            message.setSubject("SUJET DU MAIL");
+            message.setSubject("Vos Credentials");
 
             message.setSentDate(new Date());
 
-            message.setText("TEXTE DU MAIL");
+            message.setText("user : "+u.getLogin()+ "votre mot de passe : "+ u.getMdp());
 
             Transport.send(message);
 
@@ -62,7 +63,7 @@ public class MailSend  implements Serializable{
     }
     
         
-     public void send(Emprunt e) {
+     public void sendMailNOtification(Emprunt e) {
         
          MimeMessage message = new MimeMessage(session);
 
