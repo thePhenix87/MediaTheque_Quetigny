@@ -72,6 +72,7 @@ public class LivreController implements Serializable{
 
     @PostConstruct
     public void init() {
+        String titre = "Mon titre";
         listLivres=livreDao.getAll();
     }
 
