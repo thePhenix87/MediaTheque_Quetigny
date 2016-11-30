@@ -39,15 +39,35 @@ public class ControlRecherche implements Serializable {
     @Inject
     private LivreDao livreDao;
     
+    @Inject
+    private CategorieDao categorieDao;
+    
     private String termeRecherche;
     
+    private String critereRecherche; //titre, catégorie ou auteur
+    
+    private String categorieRecherche;
+    
+    private List listeNomCategorie;
+    
     //un set pour éviter les doublons
-    Set setResultatsRecherche = new LinkedHashSet();
+    private Set setResultatsRecherche = new LinkedHashSet();
     
     //une liste car <p:autoComplete> veut une liste
-    List listeResultatsRecherche = new ArrayList();
+    private List listeResultatsRecherche = new ArrayList();
     
-    
+    @PostConstruct
+    public void init(){
+        System.out.println("loooooooooooooooooooooooool");
+        listeNomCategorie=new ArrayList();
+        //pour récupérer le nom des catégories dans une liste
+        for(Object o : categorieDao.getAll()){
+            Categorie c=(Categorie)o;
+            listeNomCategorie.add(c.getIntitule());
+            System.out.println(c.getIntitule());
+        }
+        
+    }
     
     public LivreDao getLivreDao() {
         return livreDao;
@@ -72,14 +92,20 @@ public class ControlRecherche implements Serializable {
     }
     
     public List recupererListeLivresSelonRecherche(String recherche){
-        
-        setResultatsRecherche.clear();
-        listeResultatsRecherche.clear();
-        
-        setResultatsRecherche.addAll(this.livreDao.listerLivresTitreDebutantPar(recherche));
-        setResultatsRecherche.addAll(this.livreDao.listerLivresTitreContenant(recherche));
-        
-        listeResultatsRecherche.addAll(setResultatsRecherche);
+        if(recherche!=null){
+            setResultatsRecherche.clear();
+            listeResultatsRecherche.clear();
+            if(critereRecherche=="auteur"){
+                setResultatsRecherche.addAll(this.livreDao.listerLivresAuteurDebutantPar(recherche));
+                setResultatsRecherche.addAll(this.livreDao.listerLivresAuteurContenant(recherche));
+            }else if(critereRecherche=="type"){
+            }
+            else{
+                setResultatsRecherche.addAll(this.livreDao.listerLivresTitreDebutantPar(recherche));
+                setResultatsRecherche.addAll(this.livreDao.listerLivresTitreContenant(recherche));
+            }
+            listeResultatsRecherche.addAll(setResultatsRecherche);
+        }
         return listeResultatsRecherche;
         
     }
@@ -93,7 +119,38 @@ public class ControlRecherche implements Serializable {
     }
     
     public List completeText(String query){
-        return recupererListeLivresSelonRecherche(query);
+        List<String> listeLivresDescriptionCourte=new ArrayList();
+        List<Livre> listeLivre=recupererListeLivresSelonRecherche(query);
+        for(int i=0;i<listeLivre.size();i++){
+            listeLivresDescriptionCourte.add(listeLivre.get(i).getDescriptionCourte());
+        }
+        return listeLivresDescriptionCourte;
     }
+
+    public String getCritereRecherche() {
+        return critereRecherche;
+    }
+
+    public void setCritereRecherche(String critereRecherche) {
+        this.critereRecherche = critereRecherche;
+    }
+
+    public List getListeNomCategorie() {
+        return listeNomCategorie;
+    }
+
+    public void setListeNomCategorie(List listeNomCategorie) {
+        this.listeNomCategorie = listeNomCategorie;
+    }
+
+    public String getCategorieRecherche() {
+        return categorieRecherche;
+    }
+
+    public void setCategorieRecherche(String categorieRecherche) {
+        this.categorieRecherche = categorieRecherche;
+    }
+    
+    
     
 }

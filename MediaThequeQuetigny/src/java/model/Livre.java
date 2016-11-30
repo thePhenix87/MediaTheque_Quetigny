@@ -230,4 +230,9 @@ public class Livre implements Serializable {
         else
             return moyenne;
     }
+    
+    public String getDescriptionCourte(){
+       return this.titre;
+    }
+    
 }

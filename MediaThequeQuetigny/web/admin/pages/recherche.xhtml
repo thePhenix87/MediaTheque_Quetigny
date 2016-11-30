@@ -20,13 +20,21 @@ and open the template in the editor.
         
         <p:fieldset legend="Rechercher" style="margin-bottom:20px">
             <h:form id="formulaireRechercher">
-                <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" globalOnly="true"/>
-                <h:outputLabel for="champRecherche" value="Texte à rechercher"/>
-                <p:autoComplete id="champRecherche" maxResults="10" value="#{controlRecherche.termeRecherche}" completeMethod="#{controlRecherche.completeText}" />
-                <p:message for="champRecherche"/>
-                <p:commandButton update=":resultatsRechercher" value="Rechercher" id="boutonValiderNouvelle" actionListener="#{controlRecherche.rechercher()}">
-                    <f:param name="page" value="recherche" />
-                </p:commandButton>
+                <p:panelGrid columns="3">
+                    <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" globalOnly="true"/>
+                    <h:selectOneMenu id="critereRecherche" value="#{controlRecherche.critereRecherche}" required="true">
+                        <f:selectItem itemLabel="Recherche par titre contenant" itemValue="titre" />
+                        <f:selectItem itemLabel="Recherche par auteur contenant" itemValue="auteur" />
+                    </h:selectOneMenu>
+
+                    <p:autoComplete id="champRecherche" maxResults="10" value="#{controlRecherche.termeRecherche}" completeMethod="#{controlRecherche.completeText}" />
+                    <p:message for="champRecherche"/>
+                                       
+                    <h:selectOneMenu id="categorieRecherche" value="#{controlRecherche.categorieRecherche}" required="true">
+                        <f:selectItem itemLabel="Toutes catégories" itemValue="" />
+                        <f:selectItems itemValue="#{nomCategorie}" var="nomCategorie" value="#{controlRecherche.listeNomCategorie}" />
+                    </h:selectOneMenu>
+                </p:panelGrid>
             </h:form>
         </p:fieldset>
         
@@ -47,7 +55,7 @@ and open the template in the editor.
                     <p:column headerText="Auteur" sortBy="#{livre.getIdAuteur()}">
                         <h:outputText value="#{livre.getIdAuteur().getNom()}" />
                     </p:column>
-                  
+                    
                 </p:dataTable>
             </h:form>
         </p:fieldset>
