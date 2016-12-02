@@ -27,7 +27,7 @@ and open the template in the editor.
                     <h:outputText value="#{commentaire.idCommentaire}"/>
                 </p:column>
                 <p:column headerText="Livre" sortBy="#{commentaire.codeLivre.titre}" style="width:300px">
-                    <h:outputText value="#{commentaire.codeLivre}"/>
+                    <h:outputText value="#{commentaire.codeLivre.titre}"/>
                 </p:column>
                 <p:column headerText="Note" sortBy="#{commentaire.note}"  style="width:105px">
                     <p:rating value="#{commentaire.note}" readonly="true"/>

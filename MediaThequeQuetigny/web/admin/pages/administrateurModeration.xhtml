@@ -30,7 +30,7 @@ and open the template in the editor.
                 <h:outputText value="#{commentaire.idUtilisateur}"/>
             </p:column>
             <p:column headerText="Livre" sortBy="#{commentaire.codeLivre.titre}">
-                <h:outputText value="#{commentaire.codeLivre}"/>
+                <h:outputText value="#{commentaire.codeLivre.titre}"/>
             </p:column>
                 <p:column headerText="Note" sortBy="#{commentaire.note}"  style="width:105px">
                 <p:rating value="#{commentaire.note}" readonly="true"/>

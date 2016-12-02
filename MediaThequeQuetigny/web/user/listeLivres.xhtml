@@ -22,6 +22,9 @@ and open the template in the editor.
                 <p:column headerText="Titre" sortBy="#{livre.titre}">
                     <h:outputText value="#{livre.titre}"/>
                 </p:column>
+                <p:column headerText="Auteur" sortBy="#{livre.idAuteur.nom}">
+                    <h:outputText value="#{livre.idAuteur.prenom} #{livre.idAuteur.nom}"/>
+                </p:column>
                 <p:column headerText="Note moyenne" sortBy="#{livre.getNoteMoyenneLivre(true)}">
                     <p:rating value="#{livre.getNoteMoyenneLivre(true)}" readonly="true"/>
                     <h:outputText value="#{livre.getNoteMoyenneLivre(false)}/5 (#{livre.commentaireList.size()} avis)"/>
