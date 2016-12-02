@@ -223,6 +223,8 @@ public class GestionEmpruntRetour {
         exdao.update(ex);
         this.affichermsg(3);
     }
+    
+    
 
     public EmpruntDao getEdao() {
         return edao;

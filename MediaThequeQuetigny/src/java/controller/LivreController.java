@@ -160,6 +160,7 @@ public class LivreController implements Serializable {
         FacesMessage msg = new FacesMessage("Le livre " + livre.getTitre() + " a bien été Ajouté");
         FacesContext.getCurrentInstance().addMessage(null, msg);
         livreDao.update(livre);
+        livre = new Livre();
     }
 
     /*MODIFIER FORMAT DATE pour l'année d'édition du livre*/

@@ -33,19 +33,32 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "utilisateur")
 @NamedQueries({
-    @NamedQuery(name = "Utilisateur.findAll", query = "SELECT u FROM Utilisateur u"),
-    @NamedQuery(name = "Utilisateur.findByIdUtilisateur", query = "SELECT u FROM Utilisateur u WHERE u.idUtilisateur = :idUtilisateur"),
-    @NamedQuery(name = "Utilisateur.findByNom", query = "SELECT u FROM Utilisateur u WHERE u.nom = :nom"),
-    @NamedQuery(name = "Utilisateur.findByPrenom", query = "SELECT u FROM Utilisateur u WHERE u.prenom = :prenom"),
-    @NamedQuery(name = "Utilisateur.findBySessionFormation", query = "SELECT u FROM Utilisateur u WHERE u.sessionFormation = :sessionFormation"),
-    @NamedQuery(name = "Utilisateur.findByType", query = "SELECT u FROM Utilisateur u WHERE u.type = :type"),
-    @NamedQuery(name = "Utilisateur.findByMail", query = "SELECT u FROM Utilisateur u WHERE u.mail = :mail"),
-    @NamedQuery(name = "Utilisateur.findByDateNaissance", query = "SELECT u FROM Utilisateur u WHERE u.dateNaissance = :dateNaissance"),
-    @NamedQuery(name = "Utilisateur.findByTelephone", query = "SELECT u FROM Utilisateur u WHERE u.telephone = :telephone"),
-    @NamedQuery(name = "Utilisateur.findByAdresse", query = "SELECT u FROM Utilisateur u WHERE u.adresse = :adresse"),
-    @NamedQuery(name = "Utilisateur.findByVille", query = "SELECT u FROM Utilisateur u WHERE u.ville = :ville"),
-    @NamedQuery(name = "Utilisateur.findByCp", query = "SELECT u FROM Utilisateur u WHERE u.cp = :cp"),
-    @NamedQuery(name = "Utilisateur.findByLogin", query = "SELECT u FROM Utilisateur u WHERE u.login = :login"),
+    @NamedQuery(name = "Utilisateur.findAll", query = "SELECT u FROM Utilisateur u")
+    ,
+    @NamedQuery(name = "Utilisateur.findByIdUtilisateur", query = "SELECT u FROM Utilisateur u WHERE u.idUtilisateur = :idUtilisateur")
+    ,
+    @NamedQuery(name = "Utilisateur.findByNom", query = "SELECT u FROM Utilisateur u WHERE u.nom = :nom")
+    ,
+    @NamedQuery(name = "Utilisateur.findByPrenom", query = "SELECT u FROM Utilisateur u WHERE u.prenom = :prenom")
+    ,
+    @NamedQuery(name = "Utilisateur.findBySessionFormation", query = "SELECT u FROM Utilisateur u WHERE u.sessionFormation = :sessionFormation")
+    ,
+    @NamedQuery(name = "Utilisateur.findByType", query = "SELECT u FROM Utilisateur u WHERE u.type = :type")
+    ,
+    @NamedQuery(name = "Utilisateur.findByMail", query = "SELECT u FROM Utilisateur u WHERE u.mail = :mail")
+    ,
+    @NamedQuery(name = "Utilisateur.findByDateNaissance", query = "SELECT u FROM Utilisateur u WHERE u.dateNaissance = :dateNaissance")
+    ,
+    @NamedQuery(name = "Utilisateur.findByTelephone", query = "SELECT u FROM Utilisateur u WHERE u.telephone = :telephone")
+    ,
+    @NamedQuery(name = "Utilisateur.findByAdresse", query = "SELECT u FROM Utilisateur u WHERE u.adresse = :adresse")
+    ,
+    @NamedQuery(name = "Utilisateur.findByVille", query = "SELECT u FROM Utilisateur u WHERE u.ville = :ville")
+    ,
+    @NamedQuery(name = "Utilisateur.findByCp", query = "SELECT u FROM Utilisateur u WHERE u.cp = :cp")
+    ,
+    @NamedQuery(name = "Utilisateur.findByLogin", query = "SELECT u FROM Utilisateur u WHERE u.login = :login")
+    ,
     @NamedQuery(name = "Utilisateur.findByMdp", query = "SELECT u FROM Utilisateur u WHERE u.mdp = :mdp")})
 public class Utilisateur implements Serializable {
 
@@ -57,13 +70,13 @@ public class Utilisateur implements Serializable {
     private Integer idUtilisateur;
     @Basic(optional = false)
     @NotNull
-    @Pattern(regexp="[a-zA-Z-]+")
+    @Pattern(regexp = "[a-zA-Z-]+")
     @Size(min = 1, max = 50)
     @Column(name = "nom")
     private String nom;
     @Basic(optional = false)
     @NotNull
-    @Pattern(regexp="[a-zA-Z-]+")
+    @Pattern(regexp = "[a-zA-Z-]+")
     @Size(min = 1, max = 50)
     @Column(name = "prenom")
     private String prenom;
@@ -79,7 +92,7 @@ public class Utilisateur implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Pattern(regexp="\\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\\b")
+    @Pattern(regexp = "\\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\\b")
     @Column(name = "mail")
     private String mail;
     @Basic(optional = false)
@@ -103,19 +116,19 @@ public class Utilisateur implements Serializable {
     private String ville;
     @Basic(optional = false)
     @NotNull
-    @Pattern(regexp="[0-9]{5}")
+    @Pattern(regexp = "[0-9]{5}")
     @Column(name = "cp")
     private String cp;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Pattern(regexp="[a-zA-Z0-9-_]+")
+    @Pattern(regexp = "[a-zA-Z0-9-_]+")
     @Column(name = "login")
     private String login;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Pattern(regexp="[a-zA-Z0-9-_]+")
+    @Pattern(regexp = "[a-zA-Z0-9-_]+")
     @Column(name = "mdp")
     private String mdp;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUtilisateur")
@@ -299,5 +312,5 @@ public class Utilisateur implements Serializable {
     public String toString() {
         return login;
     }
-    
+
 }

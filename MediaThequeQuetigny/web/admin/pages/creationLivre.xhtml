@@ -62,12 +62,15 @@
                     Description
                     <p:inputTextarea rows="4" cols="60" value="#{livreController.livre.description}" />
                     <p:outputPanel id="imageLivre" style="width: 180px;height: 150px;">
-                        <p:graphicImage name="img/#{livreController.livre.image}" style="width: inherit ;" />
+                        <p:graphicImage rendered="#{livreController.livre.image!=null}" 
+                                        library="img"
+                                        name="#{livreController.livre.image}" style="width: inherit ;" />
                     </p:outputPanel>
                 </p:panelGrid> 
                 <br></br>
                 <p:commandButton value="Valider" id="boutonValiderNouveauLivre" 
-                                 actionListener="#{livreController.ajouterLivre()}"/>
+                                 actionListener="#{livreController.ajouterLivre()}"
+                                 update="@form"/>
             </h:form> </center>
       
 <h:form>
@@ -75,7 +78,7 @@
                   mode="advanced" 
                   dragDropSupport="true"
                   update="messages,:formAjouter:imageLivre" 
-                  sizeLimit="100000" 
+                  sizeLimit="500000" 
                   allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
                   
                   />

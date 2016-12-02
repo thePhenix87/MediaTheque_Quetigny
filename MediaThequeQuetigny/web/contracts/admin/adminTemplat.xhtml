@@ -34,7 +34,7 @@
                 <ui:insert name="top"></ui:insert>
                 <h:form>  
                     <p:menubar>
-                        <p:menuitem value="Accueil" url="home.xhtml" icon="ui-icon-home" />
+                        <p:menuitem value="Accueil" url="http://localhost:8080/MediaThequeQuetigny/faces/user/modelPageUser.xhtml" icon="ui-icon-home" />
                         
                         <p:submenu label="Utilisateur" icon="ui-icon-document">                           
                             <p:menuitem value="Ajouter nouveau" url="utilisateur.xhtml" />
@@ -59,6 +59,18 @@
                                 <p:menuitem value="File" url="#" />
                             </p:submenu>
                         </p:submenu>
+                        
+                           <p:submenu label="Emprunt" icon="ui-icon-pin-s">
+                            <p:menuitem value="Nouvelle emprunt" url="administrateurEmprunt.xhtml" icon="ui-icon-plus"/>
+                            
+                            <p:submenu label="Moderer" icon="ui-icon-search">
+                                <p:submenu label="Commentaire">
+                                    <p:menuitem value="Workspace" url="#" />
+                                </p:submenu>
+                                <p:menuitem value="File" url="#" />
+                            </p:submenu>
+                        </p:submenu>
+                        
                         <p:menuitem value="Commentaires" url="administrateurModeration.xhtml" icon="ui-icon-comment" />
                         <f:facet name="options">
                                 <p:autoComplete  id="champRecherche" maxResults="10" placeholder="Rechercher" value="#{controlRecherche.termeRecherche}" completeMethod="#{controlRecherche.completeText}" />
