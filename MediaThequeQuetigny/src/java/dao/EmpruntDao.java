@@ -14,6 +14,7 @@ import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import model.Emprunt;
 import model.Exemplaire;
+import model.Livre;
 import model.Utilisateur;
 
 /**
@@ -39,13 +40,46 @@ public class EmpruntDao extends DAO_IMPL<Emprunt> {
         if (l.size() < 1) {
             return null;
         }
-      
+
         return l;
     }
 
     public List<Emprunt> getList(Utilisateur u) {
         Query q = this.getEm().createQuery("SELECT e FROM Emprunt e where  e.idUtilisateur =:iduser order by e.dateEmprunt desc", Emprunt.class);
         q.setParameter("iduser", u);
+        List<Emprunt> l = q.getResultList();
+
+        if (l.size() < 1) {
+            return null;
+        }
+        return l;
+    }
+
+    public List<Emprunt> getListparEx(Exemplaire ex) {
+        Query q = this.getEm().createQuery("SELECT E FROM Emprunt E where E.idExemplaire  =:idex order by e.dateEmprunt desc", Emprunt.class);
+        q.setParameter("idex", ex);
+        List<Emprunt> l = q.getResultList();
+
+        if (l.size() < 1) {
+            return null;
+        }
+        return l;
+    }
+    
+     public Emprunt geEmprunParEx(Exemplaire ex) {
+        Query q = this.getEm().createQuery("SELECT E FROM Emprunt E where E.idExemplaire=:idex AND E.dateRetour=null order by e.dateEmprunt desc", Emprunt.class);
+        q.setParameter("idex", ex);
+        List<Emprunt> l = q.getResultList();
+
+        if (l.size() < 1) {
+            return null;
+        }
+        return l.get(0);
+    }
+
+    public List<Emprunt> getListparLivre(Livre lv) {
+        Query q = this.getEm().createQuery("SELECT E FROM Emprunt E where E.idExemplaire.codeLivre  =:codel order by e.dateEmprunt desc", Emprunt.class);
+        q.setParameter("codel", lv);
         List<Emprunt> l = q.getResultList();
 
         if (l.size() < 1) {
@@ -67,7 +101,7 @@ public class EmpruntDao extends DAO_IMPL<Emprunt> {
         }
 
     }
-    
+
     public List<Emprunt> getListDepaseDate() {
         Calendar cm21 = Calendar.getInstance();
         cm21.add(Calendar.DATE, -21);
@@ -78,7 +112,7 @@ public class EmpruntDao extends DAO_IMPL<Emprunt> {
         if (l.size() < 1) {
             return null;
         }
-      
+
         return l;
     }
 }
